@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/DrawerArrowStyle">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#fff"
+            app:popupTheme="@style/DrawerArrowStyle" />
+
+        <!--        <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="#fff"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:title="Packages"
+                    app:titleTextColor="#000" />-->
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-15dp"
+            android:background="#fff"
+            app:popupTheme="@style/DrawerArrowStyle">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?android:attr/selectableItemBackground"
+
+                android:id="@+id/backbutton"
+                android:src="@drawable/ic_arrow_back_black_24dp" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Packages"
+                android:textAlignment="center"
+                android:paddingRight="20dp"
+                android:textColor="#000"
+                android:textSize="26dp"
+
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+
+</android.support.design.widget.CoordinatorLayout>
