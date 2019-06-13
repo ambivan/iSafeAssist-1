@@ -1,8 +1,11 @@
 package com.prateek.isafeassist;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,9 +22,13 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.prateek.isafeassist.fragments.BikesFragment;
 import com.prateek.isafeassist.fragments.CarFragment;
 import com.prateek.isafeassist.fragments.DefaultFragment;
+import com.prateek.isafeassist.fragments.PaymentFragment;
+import com.prateek.isafeassist.fragments.ServicesFragment;
+import com.prateek.isafeassist.welcome.SplashActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,12 +42,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Toolbar backtoolbar = findViewById(R.id.toolbar_back);
-        setSupportActionBar(backtoolbar);/*
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
-        bike_knowmore = findViewById(R.id.know_more_bike_btn);
-        backbtn = findViewById(R.id.backbutton);
+/*        Toolbar backtoolbar = findViewById(R.id.toolbar_back);
+        setSupportActionBar(backtoolbar);
+        backtoolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);*/
+        bike_knowmore = findViewById(R.id.knowmore_bike_btn);
+        //backbtn = findViewById(R.id.backbutton);
         car_knowmore = findViewById(R.id.know_more_car_btn);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -50,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        bike_knowmore.setOnClickListener(new View.OnClickListener() {
+        /*bike_knowmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadFragment(new BikesFragment());
@@ -65,20 +71,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-        /*backbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadDefFragment(new DefaultFragment());
-            }
-        });*/
-    }
-
-    private void loadDefFragment(DefaultFragment defaultFragment) {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, defaultFragment);
-        fragmentTransaction.commit();
+*/
     }
 
 
@@ -99,8 +92,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+
+            loadFragment(new DefaultFragment());
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            loadFragment(new ServicesFragment());
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            alertbuilder();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -126,5 +122,31 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.frame_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit(); // save the changes
+    }
+
+    private void alertbuilder(){
+        new AlertDialog.Builder(this)
+                .setTitle("LogOut")
+                .setMessage("Are you sure you want to LogOut?")
+
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        FirebaseAuth auth = FirebaseAuth.getInstance();
+                        auth.signOut();
+                        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.prateek.isafeassist.MainActivity;
 import com.prateek.isafeassist.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
     LinearLayout textsplash, texthome, menus;
     Animation frombottom;
     Button signup, signin;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,19 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         signup = findViewById(R.id.signup_btn);
         signin = findViewById(R.id.login_btn);
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
+        } else {
+            animatewelcome();
+        }
+
+
+    }
+
+    void animatewelcome() {
 
         frombottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
 

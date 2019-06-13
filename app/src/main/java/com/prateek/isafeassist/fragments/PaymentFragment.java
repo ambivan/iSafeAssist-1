@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toolbar;
 
 import com.prateek.isafeassist.R;
 
@@ -17,6 +18,7 @@ public class PaymentFragment extends android.app.Fragment implements View.OnClic
 
     LinearLayout paytm, gpay, card, netbanking;
 
+    Toolbar toolbar;
     public PaymentFragment() {
         // Required empty public constructor
     }
@@ -36,10 +38,16 @@ public class PaymentFragment extends android.app.Fragment implements View.OnClic
         gpay.setOnClickListener(this);
         card.setOnClickListener(this);
         netbanking.setOnClickListener(this);
+        /*toolbar= view.findViewById(R.id.toolbar_back);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });*/
         return view;
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -66,7 +74,6 @@ public class PaymentFragment extends android.app.Fragment implements View.OnClic
                 replaceFragment(fragment);
 
                 break;
-
         }
     }
 

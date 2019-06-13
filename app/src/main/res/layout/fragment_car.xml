@@ -36,63 +36,106 @@
                 android:textStyle="bold|normal" />
 
             <EditText
+                android:id="@+id/fname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="First Name *" />
+                android:hint="First Name *"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
 
             <EditText
+                android:id="@+id/lname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Last Name *" />
+                android:hint="Last Name *"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
 
             <EditText
+                android:id="@+id/mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="E-mail ID *" />
+                android:singleLine="true"
+                android:hint="E-mail ID *"
+                android:imeOptions="actionNext" />
 
             <EditText
+                android:id="@+id/mobnumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Mobile Number *" />
+                android:singleLine="true"
+                android:hint="Mobile Number *"
+                android:imeOptions="actionNext" />
 
             <EditText
+                android:id="@+id/add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Address Line (1) *" />
+                android:singleLine="true"
+                android:hint="Address Line (1) *"
+                android:imeOptions="actionNext" />
 
             <EditText
+                android:id="@+id/land"
+                android:singleLine="true"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Landmark *" />
 
-            <Spinner
-                android:id="@+id/car_city_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-
-                android:textAlignment="textStart" />
-
-            <Spinner
-                android:id="@+id/car_state_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-
-                android:textAlignment="textStart" />
-
-
             <EditText
+                android:id="@+id/car_city"
+                android:singleLine="true"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Zip/Postal Code*" />
+                android:hint="City *"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:id="@+id/car_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:singleLine="true"
+
+                android:hint="State *"
+
+                android:imeOptions="actionNext" />
+
+
+            <!--            <Spinner
+                            android:id="@+id/car_city_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="10dp"
+
+                            android:textAlignment="textStart" />
+
+                        <Spinner
+                            android:id="@+id/car_state_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="10dp"
+
+                            android:textAlignment="textStart" />-->
+
+
+            <EditText
+                android:id="@+id/zip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:singleLine="true"
+                android:hint="Zip/Postal Code*"
+                android:imeOptions="actionNext" />
 
 
             <Spinner
@@ -127,37 +170,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Bike Make" />
+                android:hint="Bike Make"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Bike Model" />
+                android:hint="Bike Model"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Year*" />
+                android:hint="Year*"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Registration Number" />
+                android:singleLine="true"
+                android:hint="Registration Number"
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Insurance Company" />
+                android:singleLine="true"
+                android:hint="Insurance Company"
+                android:imeOptions="actionNext" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Insurance Expiry Date" />
+                android:singleLine="true"
+                android:hint="Insurance Expiry Date"
+                android:imeOptions="actionNext" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,7 +244,6 @@
 
             <Button
                 android:id="@+id/car_buynow_btn"
-
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
