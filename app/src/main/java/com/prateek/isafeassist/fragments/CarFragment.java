@@ -4,6 +4,8 @@ package com.prateek.isafeassist.fragments;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,14 +13,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.R;
+import com.prateek.isafeassist.model.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,10 +44,15 @@ public class CarFragment extends android.app.Fragment {
 
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
 
+    CheckBox checkBox;
+    EditText car, carmake, carmodel, carregno, carinsurance, carexpiry, caryear;
+
     String firstname, lastname, emailid, mobile, address, landmark, usercity, userstate, postal;
+    String carcar, carcarmake, carcarmodel, carcarregno, carcarinsurance, carcarexpiry, carcaryear;
 
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+    private FirebaseAuth auth;
 
 
     public CarFragment() {
@@ -60,50 +73,81 @@ public class CarFragment extends android.app.Fragment {
         add = view.findViewById(R.id.add);
         land = view.findViewById(R.id.land);
         zip = view.findViewById(R.id.zip);
-
+        checkBox = view.findViewById(R.id.termscheckforcar);
         city = view.findViewById(R.id.car_city);
         state = view.findViewById(R.id.car_state);
+        car = view.findViewById(R.id.car_car);
+        carmake = view.findViewById(R.id.car_carmake);
+        carmodel = view.findViewById(R.id.car_carmodel);
+        caryear = view.findViewById(R.id.car_year);
+        carregno = view.findViewById(R.id.car_regno);
+        carinsurance = view.findViewById(R.id.car_insurance);
+        carexpiry = view.findViewById(R.id.car_expiry);
         carbtn = view.findViewById(R.id.car_buynow_btn);
-        /*s1 = view.findViewById(R.id.car_city_spinner);
-        s2 = view.findViewById(R.id.car_state_spinner);
-        */
         s3 = view.findViewById(R.id.car_india_spinner);
-        s4 = view.findViewById(R.id.car_bike_spinner);
 
-        allotfields();
-/*        toolbar = view.findViewById(R.id.toolbar_back);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });*/
+        auth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
+
+        getallData();
+
         carbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkfields();
-                if (status) {
-                    loadFragment(new PaymentFragment());
+                allotfields();
 
-                } else {
+                if (TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(emailid) || TextUtils.isEmpty(mobile) ||
+                        TextUtils.isEmpty(address) || TextUtils.isEmpty(landmark) || TextUtils.isEmpty(usercity) ||
+                        TextUtils.isEmpty(userstate) || TextUtils.isEmpty(postal) || TextUtils.isEmpty(carcaryear)) {
+
                     Toast.makeText(getActivity(), "Enter All fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    User user = new User();
+                    user.setFirstname(firstname);
+                    user.setLastname(lastname);
+                    user.setEmail(emailid);
+                    user.setMobno(mobile);
+                    user.setAddress(address);
+                    user.setLandmark(landmark);
+                    user.setZip(postal);
+                    user.setCity(usercity);
+                    user.setState(userstate);
+                    user.setCar(carcar);
+                    user.setCarmake(carcarmake);
+                    user.setCarmodel(carcarmodel);
+                    user.setYear(carcaryear);
+                    user.setInsuranceco(carcarinsurance);
+                    user.setRegno(carcarregno);
+                    user.setInsuranceexp(carcarexpiry);
+
+                    if (!(checkBox).isChecked()) {
+                        checkBox.setError("Please accept terms before proceeding");
+                    }else{
+                        if (auth.getCurrentUser() != null) {
+                            mFirebaseDatabase.child("Car Package" + auth.getCurrentUser().getUid()).child(auth.getCurrentUser().getUid()).push().setValue(user, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                    if (databaseError == null) {
+
+                                        Toast.makeText(getActivity(), "Data saved Successfully", Toast.LENGTH_SHORT).show();
+                                        loadFragment(new PaymentFragment());
+                                    } else {
+                                        Toast.makeText(getActivity(), "" + databaseError, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+
                 }
             }
         });
 
-/*        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str1);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s1.setAdapter(adapter);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str2);
-        adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s2.setAdapter(adapter2);*/
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str3);
-        adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s3.setAdapter(adapter3);
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str4);
+
+/*        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str3);
         adapter4.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s4.setAdapter(adapter4);
+        s4.setAdapter(adapter4);*/
 
         return view;
     }
@@ -141,5 +185,40 @@ public class CarFragment extends android.app.Fragment {
         usercity = city.getText().toString();
         userstate = state.getText().toString();
         postal = zip.getText().toString();
+        carcar = car.getText().toString();
+        carcarmodel = carmodel.getText().toString();
+        carcarmake = carmake.getText().toString();
+        carcaryear = caryear.getText().toString();
+        carcarregno = carregno.getText().toString();
+        carcarinsurance = carinsurance.getText().toString();
+        carcarexpiry = carexpiry.getText().toString();
+
+    }
+
+    public void getallData() {
+        final User user = new User();
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+
+        firebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                fname.setText(user.getFirstname());
+                lname.setText(user.getLastname());
+                email.setText(user.getEmail());
+                mobnumber.setText(user.getMobno());
+                add.setText(user.getAddress());
+                land.setText(user.getLandmark());
+                city.setText(user.getCity());
+                state.setText(user.getState());
+                zip.setText(user.getZip());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

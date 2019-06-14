@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="First Name *"
-                android:singleLine="true"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/lname"
@@ -50,65 +50,65 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Last Name *"
-                android:singleLine="true"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/mail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="E-mail ID *"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/mobnumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="Mobile Number *"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="Address Line (1) *"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/land"
-                android:singleLine="true"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Landmark *" />
+                android:hint="Landmark *"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/car_city"
-                android:singleLine="true"
-
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="City *"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/car_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
-
                 android:hint="State *"
 
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+
+                android:singleLine="true" />
 
 
             <!--            <Spinner
@@ -133,9 +133,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="Zip/Postal Code*"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
 
             <Spinner
@@ -158,61 +158,76 @@
                 android:textStyle="bold|normal" />
 
 
-            <Spinner
-                android:id="@+id/car_bike_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
+            <!--            <Spinner
+                            android:id="@+id/car_bike_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="20dp"
 
-                android:textAlignment="textStart" />
-
+                            android:textAlignment="textStart" />-->
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Bike Make"
-                android:singleLine="true"
-                android:imeOptions="actionNext" />
-
-            <EditText
+                android:id="@+id/car_car"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Bike Model"
-                android:singleLine="true"
-                android:imeOptions="actionNext" />
+                android:hint="Car"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+
 
             <EditText
+                android:id="@+id/car_carmake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:hint="Car Make"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/car_carmodel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:hint="Car Model"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/car_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Year*"
-                android:singleLine="true"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
+                android:id="@+id/car_regno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="Registration Number"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
+                android:id="@+id/car_insurance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="Insurance Company"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
+                android:id="@+id/car_expiry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:singleLine="true"
                 android:hint="Insurance Expiry Date"
-                android:imeOptions="actionNext" />
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -225,6 +240,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:button="@null"
+                    android:id="@+id/termscheckforcar"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
                     android:text="I Accept the Terms and Condition*" />

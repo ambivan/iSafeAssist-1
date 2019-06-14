@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.prateek.isafeassist.fragments.BikesFragment;
 import com.prateek.isafeassist.fragments.CarFragment;
 import com.prateek.isafeassist.fragments.DefaultFragment;
+import com.prateek.isafeassist.fragments.LandingFragment;
 import com.prateek.isafeassist.fragments.PaymentFragment;
 import com.prateek.isafeassist.fragments.ServicesFragment;
 import com.prateek.isafeassist.welcome.SplashActivity;
@@ -56,22 +57,6 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*bike_knowmore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new BikesFragment());
-            }
-        });
-
-        car_knowmore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                loadFragment(new CarFragment());
-
-            }
-        });
-*/
     }
 
 
@@ -91,20 +76,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_home) {
+        if (id == R.id.nav_package) {
 
             loadFragment(new DefaultFragment());
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            loadFragment(new ServicesFragment());
+        } else if (id == R.id.navig_home) {
+            loadFragment(new LandingFragment());
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_orderhist) {
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_membership) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_bookedservice) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
             alertbuilder();
         }
 
@@ -124,7 +109,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit(); // save the changes
     }
 
-    private void alertbuilder(){
+    private void alertbuilder() {
         new AlertDialog.Builder(this)
                 .setTitle("LogOut")
                 .setMessage("Are you sure you want to LogOut?")

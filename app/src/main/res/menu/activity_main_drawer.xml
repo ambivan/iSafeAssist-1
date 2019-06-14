@@ -4,24 +4,26 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/navig_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_package"
             android:title="Packages" />
         <item
-            android:id="@+id/nav_gallery"
-            android:title="Services" />
-        <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_orderhist"
             android:title="Order History" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_membership"
             android:title="Your Membership" />
 
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_bookedservice"
             android:title="Booked Services" />
         <item
-            android:id="@+id/nav_send"
+            android:id="@+id/nav_logout"
             android:title="Logout" />
     </group>
 

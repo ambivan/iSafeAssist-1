@@ -38,36 +38,45 @@
                 android:textStyle="bold|normal" />
 
             <EditText
+                android:id="@+id/bike_user_firstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="First Name *" />
 
             <EditText
+                android:id="@+id/bike_user_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+
                 android:hint="Last Name *" />
 
             <EditText
+                android:id="@+id/bike_user_emailid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+
                 android:hint="E-mail ID *" />
 
             <EditText
+                android:id="@+id/bike_user_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Mobile Number *" />
 
             <EditText
+                android:id="@+id/bike_user_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+
                 android:hint="Address Line (1) *" />
 
             <EditText
+                android:id="@+id/bike_user_landmark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -90,6 +99,7 @@
 
 
             <EditText
+                android:id="@+id/bike_user_postal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -125,36 +135,42 @@
                 android:textAlignment="textStart" />
 
             <EditText
+                android:id="@+id/bike_bike_make"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Bike Make" />
 
             <EditText
+                android:id="@+id/bike_bike_model"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Bike Model" />
 
             <EditText
+                android:id="@+id/bike_bike_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Year*" />
 
             <EditText
+                android:id="@+id/bike_bike_regno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Registration Number" />
 
             <EditText
+                android:id="@+id/bike_bike_insurance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:hint="Insurance Company" />
 
             <EditText
+                android:id="@+id/bike_bike_expiry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"

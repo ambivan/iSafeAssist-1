@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
@@ -20,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.prateek.isafeassist.R;
 
 /**
@@ -31,8 +35,17 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
     Button button;
     Spinner s1, s2, s3, s4;
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
-boolean status;
+
+    boolean status;
+    CheckBox checkBox;
+    EditText bike, bikemake, bikemodel, bikeregno, bikeinsurance, bikeexpiry, bikeyear;
+
     String firstname, lastname, emailid, mobile, address, landmark, usercity, userstate, postal;
+    String bikebike, bikebikemake, bikebikemodel, bikebikeregno, bikebikeinsurance, bikebikeexpiry, bikebikeyear;
+
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
+    private FirebaseAuth auth;
 
 
     Toolbar toolbar;
@@ -59,18 +72,11 @@ boolean status;
         s2 = view.findViewById(R.id.bike_state_spinner);
         s3 = view.findViewById(R.id.bike_india_spinner);
         s4 = view.findViewById(R.id.bike_bike_spinner);
+        fname= view.findViewById(R.id.bike_user_firstname);
 
         button.setOnClickListener(this);
 
-        /*toolbar= view.findViewById(R.id.toolbar_back);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });*/
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str1);
+/*        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str1);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s1.setAdapter(adapter);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str2);
@@ -81,7 +87,7 @@ boolean status;
         s3.setAdapter(adapter3);
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str4);
         adapter4.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s4.setAdapter(adapter4);
+        s4.setAdapter(adapter4);*/
         return view;
     }
 
