@@ -33,6 +33,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:text="Customer Details"
                 android:textSize="24dp"
                 android:textStyle="bold|normal" />
@@ -42,6 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="First Name *" />
 
             <EditText
@@ -49,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="Last Name *" />
 
             <EditText
@@ -57,7 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="E-mail ID *" />
 
             <EditText
@@ -65,6 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="Mobile Number *" />
 
             <EditText
@@ -72,7 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="Address Line (1) *" />
 
             <EditText
@@ -80,30 +89,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:hint="Landmark *" />
 
-            <Spinner
-                android:id="@+id/bike_city_spinner"
+            <!--
+                        <Spinner
+                            android:id="@+id/bike_city_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="10dp"
+                            android:textAlignment="textStart" />
+
+                        <Spinner
+                            android:id="@+id/bike_state_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="10dp"
+
+                            android:textAlignment="textStart" />
+            -->
+            <EditText
+                android:id="@+id/bike_user_city"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:textAlignment="textStart" />
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:hint="City *" />
 
-            <Spinner
-                android:id="@+id/bike_state_spinner"
+            <EditText
+                android:id="@+id/bike_user_state"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-
-                android:textAlignment="textStart" />
-
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:hint="State *"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_postal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Zip/Postal Code*" />
+                android:hint="Zip/Postal Code*"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
 
             <Spinner
@@ -126,55 +157,76 @@
                 android:textStyle="bold|normal" />
 
 
-            <Spinner
-                android:id="@+id/bike_bike_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
+            <!--            <Spinner
+                            android:id="@+id/bike_bike_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_margin="20dp"
 
-                android:textAlignment="textStart" />
+                            android:textAlignment="textStart" />-->
+
+            <EditText
+                android:id="@+id/bike_bike_bike"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:hint="Bike"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_bike_make"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Bike Make" />
+                android:hint="Bike Make"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_bike_model"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Bike Model" />
+                android:hint="Bike Model"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_bike_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Year*" />
+                android:hint="Year*"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_bike_regno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Registration Number" />
+                android:hint="Registration Number"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_bike_insurance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Insurance Company" />
+                android:hint="Insurance Company"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_bike_expiry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Insurance Expiry Date" />
+                android:hint="Insurance Expiry Date"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -182,14 +234,15 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/bike_package_checkbox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:button="@null"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
-                    android:gravity="center"
 
+                    android:gravity="center"
                     android:text="I Accept the Terms and Condition*" />
 
                 <!--<TextView
