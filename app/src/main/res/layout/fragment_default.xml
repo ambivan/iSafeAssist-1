@@ -1,171 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.DefaultFragment">
 
-
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_back"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="-15dp"
-            android:background="#fff"
-            app:popupTheme="@style/DrawerArrowStyle">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-15dp"
+                android:background="#fff"
+                app:popupTheme="@style/DrawerArrowStyle">
+
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Packages"
+                    android:textAlignment="center"
+                    android:textColor="#000"
+                    android:textSize="26dp"
+
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.Toolbar>
 
             <TextView
-                android:id="@+id/toolbar_title"
+                android:id="@+id/roadside_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Roadside Assistance\nPackages"
+                android:textColor="#000"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.498" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Packages"
-                android:textAlignment="center"
-                android:textColor="#000"
-                android:textSize="26dp"
+                android:layout_below="@id/roadside_text"
+                android:layout_margin="20dp"
+                android:orientation="vertical"
+                android:weightSum="20">
 
-                android:textStyle="bold" />
-
-        </android.support.v7.widget.Toolbar>
-    <TextView
-        android:id="@+id/roadside_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Roadside Assistance\nPackages"
-        android:textColor="#000"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/roadside_text"
-        android:layout_margin="20dp"
-        android:orientation="vertical"
-        android:weightSum="20">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="10"
-            android:background="@drawable/bikedeskcop"
-            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="10"
+                    android:background="@drawable/bikemembership"
+                    android:orientation="vertical">
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="Bikes and Scooters"
-                android:textColor="#fff"
-                android:textSize="28dp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Bikes and Scooters"
+                        android:textColor="#fff"
+                        android:textSize="28dp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:text="₹ 240 Only*"
-                android:textColor="#fff"
-                android:textSize="28dp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="₹ 240 Only*"
+                        android:textColor="#fff"
+                        android:textSize="28dp"
+                        android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/knowmore_bike_btn"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/round_btn_yellow"
-                android:elevation="8mm"
-                android:gravity="center"
-                android:layout_margin="15dp"
-                android:text="Know More"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/knowmore_bike_btn"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/round_btn_yellow"
+                        android:elevation="8mm"
+                        android:gravity="center"
+                        android:text="Buy Now"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:textColor="#fff"
-                android:padding="10dp"
-                android:text="*taxes included" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:padding="10dp"
+                        android:text="*taxes included"
+                        android:textColor="#fff" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_weight="10"
+                    android:background="@drawable/carmembership"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="Cars"
+                        android:textColor="#fff"
+                        android:textSize="28dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="₹ 740 Only*"
+                        android:textColor="#fff"
+                        android:textSize="28dp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/know_more_car_btn"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/round_btn_yellow"
+                        android:elevation="8mm"
+                        android:gravity="center"
+                        android:text="Buy Now"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textColor="#000"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:padding="10dp"
+                        android:text="*taxes included"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_weight="10"
-            android:background="@drawable/cardesk"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="Cars"
-                android:textColor="#fff"
-                android:textSize="28dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:text="₹ 740 Only*"
-                android:textColor="#fff"
-                android:textSize="28dp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/know_more_car_btn"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="15dp"
-                android:background="@drawable/round_btn_yellow"
-                android:elevation="8mm"
-                android:gravity="center"
-                android:text="Know More"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="#000"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:textColor="#fff"
-                android:padding="10dp"
-                android:text="*taxes included" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 </FrameLayout>

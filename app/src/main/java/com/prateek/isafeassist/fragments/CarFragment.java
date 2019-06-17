@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.R;
 import com.prateek.isafeassist.model.User;
+import com.prateek.isafeassist.model.UserDetails;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -121,11 +122,13 @@ public class CarFragment extends android.app.Fragment {
                     user.setRegno(carcarregno);
                     user.setInsuranceexp(carcarexpiry);
 
+                    UserDetails details= new UserDetails();
+
                     if (!(checkBox).isChecked()) {
                         checkBox.setError("Please accept terms before proceeding");
                     }else{
                         if (auth.getCurrentUser() != null) {
-                            mFirebaseDatabase.child("Car Package" + auth.getCurrentUser().getUid()).child(auth.getCurrentUser().getUid()).push().setValue(user, new DatabaseReference.CompletionListener() {
+                            mFirebaseDatabase.child(auth.getCurrentUser().getUid()).child("Car Package"+auth.getCurrentUser().getUid()).push().setValue(user, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError == null) {
@@ -145,9 +148,9 @@ public class CarFragment extends android.app.Fragment {
         });
 
 
-/*        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str3);
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str3);
         adapter4.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s4.setAdapter(adapter4);*/
+        s3.setAdapter(adapter4);
 
         return view;
     }

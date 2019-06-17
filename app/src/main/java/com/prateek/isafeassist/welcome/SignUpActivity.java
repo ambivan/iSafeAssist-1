@@ -26,8 +26,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.prateek.isafeassist.MainActivity;
 import com.prateek.isafeassist.R;
+import com.prateek.isafeassist.fragments.PaymentFragment;
+import com.prateek.isafeassist.model.UserDetails;
 
 public class SignUpActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -35,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
     Button signup;
     ProgressDialog progressBar;
     FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
     Boolean checkstatus;
     private String email, password;
     private SignInButton button;
@@ -52,6 +58,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
         signup = findViewById(R.id.signup);
         button = findViewById(R.id.google_signup);
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         apiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
 
@@ -62,11 +69,24 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
             @Override
             public void onClick(View v) {
 
-                CheckFieldStatus();
-                if (checkstatus) {
-                    /*
 
-                     */
+                //CheckFieldStatus();
+                if (name.getText().toString() == null || mailid.getText().toString() == null || pass.getText().toString() == null
+                        || confirmpass.getText().toString() == null || name.getText().toString().length() <= 0 || mailid.getText().toString().length() < 0 || pass.getText().toString().length() <= 0
+                        || confirmpass.getText().toString().length() <= 0) {
+                    checkstatus = false;
+                    mailid.setError("Check all Fields");
+                    mailid.requestFocus();
+                } else {
+                    if (!pass.getText().toString().equals(confirmpass.getText().toString())) {
+                        Toast.makeText(SignUpActivity.this, "Password does not match", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        checkstatus = true;
+                    }
+                }
+
+                if (checkstatus) {
 
                     UserRegistrationFunction();
                 } else {
@@ -84,6 +104,23 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
                 startActivityForResult(intent, REQ_CODE);
             }
         });
+    }
+
+    private void safeinfo() {
+        final UserDetails details = new UserDetails();
+        details.setEmail(mailid.getText().toString());
+        details.setPassword(pass.getText().toString());
+        details.setName(name.getText().toString());
+        databaseReference.child("" +name.getText().toString().trim()+pass.getText().toString()+"iSAFE").push().setValue(details, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if (databaseError == null) {
+
+                    Toast.makeText(SignUpActivity.this, "Data saved Successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private void CheckFieldStatus() {
@@ -126,6 +163,22 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
                         // Checking if user is registered successfully.
                         if (task.isSuccessful()) {
 
+                            final UserDetails details = new UserDetails();
+                            details.setEmail(mailid.getText().toString());
+                            details.setPassword(pass.getText().toString());
+                            details.setName(name.getText().toString());
+                            databaseReference.child(firebaseAuth.getCurrentUser().getUid()).push().setValue(details, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                                    if (databaseError == null) {
+
+                                        Toast.makeText(SignUpActivity.this, "Data saved Successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                            //safeinfo();
+
 
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -166,7 +219,9 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
 //            finish();
         } else {
             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            finish();
         }
 
 

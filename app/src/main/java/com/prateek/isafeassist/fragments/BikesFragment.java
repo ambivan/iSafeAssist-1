@@ -162,7 +162,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
 
             } else {
                 if (auth.getCurrentUser() != null) {
-                    mFirebaseDatabase.child("Bike Package" + auth.getCurrentUser().getUid()).child(auth.getCurrentUser().getUid()).push().setValue(bike, new DatabaseReference.CompletionListener() {
+                    mFirebaseDatabase.child(auth.getCurrentUser().getUid()).child("Bike Package" + auth.getCurrentUser().getUid()).push().setValue(bike, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                             if (databaseError == null) {

@@ -20,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="iSafe Assist Bike Membership"
+                android:padding="10dp"
+                android:text="iSAFEassist Car Membership"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -69,6 +70,7 @@
                 android:layout_margin="20dp"
                 android:hint="Mobile Number *"
                 android:imeOptions="actionNext"
+                android:inputType="number"
                 android:singleLine="true" />
 
             <EditText
@@ -135,6 +137,7 @@
                 android:layout_margin="20dp"
                 android:hint="Zip/Postal Code*"
                 android:imeOptions="actionNext"
+                android:inputType="number"
                 android:singleLine="true" />
 
 
@@ -200,6 +203,7 @@
                 android:layout_margin="20dp"
                 android:hint="Year*"
                 android:imeOptions="actionNext"
+                android:inputType="number"
                 android:singleLine="true" />
 
             <EditText
@@ -235,12 +239,12 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/termscheckforcar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:button="@null"
-                    android:id="@+id/termscheckforcar"
                     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                     android:gravity="center"
                     android:text="I Accept the Terms and Condition*" />

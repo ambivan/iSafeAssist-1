@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="iSafe Assist Bike Membership"
+                android:padding="10dp"
+                android:text="iSAFEassist Bike Membership"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -44,54 +45,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="First Name *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="First Name *" />
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_lastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="Last Name *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="Last Name *" />
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_emailid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="E-mail ID *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="E-mail ID *" />
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="Mobile Number *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="Mobile Number *" />
+                android:inputType="number"
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="Address Line (1) *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="Address Line (1) *" />
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_landmark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="Landmark *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="Landmark *" />
+                android:singleLine="true" />
 
             <!--
                         <Spinner
@@ -114,9 +116,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:hint="City *"
                 android:imeOptions="actionNext"
-                android:singleLine="true"
-                android:hint="City *" />
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/bike_user_state"
@@ -134,6 +136,7 @@
                 android:layout_margin="20dp"
                 android:hint="Zip/Postal Code*"
                 android:imeOptions="actionNext"
+                android:inputType="number"
                 android:singleLine="true" />
 
 
@@ -199,6 +202,7 @@
                 android:layout_margin="20dp"
                 android:hint="Year*"
                 android:imeOptions="actionNext"
+                android:inputType="number"
                 android:singleLine="true" />
 
             <EditText

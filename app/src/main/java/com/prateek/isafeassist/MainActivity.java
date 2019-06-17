@@ -29,6 +29,7 @@ import com.prateek.isafeassist.fragments.DefaultFragment;
 import com.prateek.isafeassist.fragments.LandingFragment;
 import com.prateek.isafeassist.fragments.PaymentFragment;
 import com.prateek.isafeassist.fragments.ServicesFragment;
+import com.prateek.isafeassist.fragments.UserProfileFragment;
 import com.prateek.isafeassist.welcome.SplashActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -91,8 +92,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             alertbuilder();
-        }
+        } else if (id == R.id.profile_section) {
+            loadFragment(new UserProfileFragment());
 
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
