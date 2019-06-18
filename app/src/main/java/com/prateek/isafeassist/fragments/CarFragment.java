@@ -104,7 +104,7 @@ public class CarFragment extends android.app.Fragment {
 
                     Toast.makeText(getActivity(), "Enter All fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    User user = new User();
+                    final User user = new User();
                     user.setFirstname(firstname);
                     user.setLastname(lastname);
                     user.setEmail(emailid);
@@ -121,6 +121,7 @@ public class CarFragment extends android.app.Fragment {
                     user.setInsuranceco(carcarinsurance);
                     user.setRegno(carcarregno);
                     user.setInsuranceexp(carcarexpiry);
+                    user.setCid("Car"+auth.getCurrentUser().getUid());
 
                     UserDetails details= new UserDetails();
 
@@ -132,6 +133,7 @@ public class CarFragment extends android.app.Fragment {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError == null) {
+
 
                                         Toast.makeText(getActivity(), "Data saved Successfully", Toast.LENGTH_SHORT).show();
                                         loadFragment(new PaymentFragment());

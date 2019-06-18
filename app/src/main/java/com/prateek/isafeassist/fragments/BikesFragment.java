@@ -138,7 +138,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
             Toast.makeText(getActivity(), "Enter All Required fields", Toast.LENGTH_SHORT).show();
 
         } else {
-            Bike bike = new Bike();
+            final Bike bike = new Bike();
             bike.setFirstname(firstname);
             bike.setLastname(lastname);
             bike.setMobno(mobile);
@@ -155,6 +155,8 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
             bike.setRegno(bikebike);
             bike.setInsuranceco(bikebikeinsurance);
             bike.setInsuranceexp(bikebikeexpiry);
+            bike.setBikeid("Bike Package" + auth.getCurrentUser().getUid());
+
 
             if (!(checkBox).isChecked()) {
                 checkBox.setError("Please accept terms before proceeding");
