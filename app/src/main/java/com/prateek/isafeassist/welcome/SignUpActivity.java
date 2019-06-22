@@ -167,7 +167,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
                             details.setEmail(mailid.getText().toString());
                             details.setPassword(pass.getText().toString());
                             details.setName(name.getText().toString());
-                            databaseReference.child(firebaseAuth.getCurrentUser().getUid()).push().setValue(details, new DatabaseReference.CompletionListener() {
+                            databaseReference.child("User").child(firebaseAuth.getCurrentUser().getUid()).push().setValue(details, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError == null) {

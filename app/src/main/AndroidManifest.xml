@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prateek.isafeassist">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
-
     <uses-permission android:name="com.prateek.isafeassist.permission.MAPS_RECEIVE" />
+
     <permission
         android:name="com.pkg.map.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -23,10 +21,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <meta-data
@@ -34,7 +31,7 @@
         android:value="@integer/google_play_services_version" />
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyCX4soURnmql09QIssa1sfK_eB0nwJVAOw" />
+        android:value="AIzaSyDPaPi62YBGSDy2Tr1zCIhiysdIrxer5Dg" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -46,7 +43,6 @@
         android:name="android.hardware.camera.flash"
         android:required="false" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -54,7 +50,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".driverdetails.DriverListActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -65,7 +61,7 @@
         -->
         <activity
             android:name=".maps.TowingMapActivity"
-            android:label="@string/title_activity_towing_map"></activity>
+            android:label="@string/title_activity_towing_map" />
         <activity android:name=".drawer.MembershipActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -77,8 +73,7 @@
         -->
         <activity
             android:name=".maps.ServiceMapActivity"
-            android:label="@string/title_activity_service_map"
-            ></activity>
+            android:label="@string/title_activity_service_map" />
         <activity
             android:name=".welcome.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -104,7 +99,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCX4soURnmql09QIssa1sfK_eB0nwJVAOw" />
+            android:value="AIzaSyDPaPi62YBGSDy2Tr1zCIhiysdIrxer5Dg" />
     </application>
 
 </manifest>
