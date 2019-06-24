@@ -36,7 +36,7 @@ import com.prateek.isafeassist.model.UserDetails;
 
 public class SignUpActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    EditText name, mailid, pass, confirmpass;
+    EditText name, mailid, pass, confirmpass, contact;
     Button signup;
     ProgressDialog progressBar;
     FirebaseAuth firebaseAuth;
@@ -55,6 +55,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
         mailid = findViewById(R.id.signup_email);
         pass = findViewById(R.id.signup_pass);
         confirmpass = findViewById(R.id.signup_confirm_pass);
+        contact = findViewById(R.id.signup_contact);
         signup = findViewById(R.id.signup);
         button = findViewById(R.id.google_signup);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -106,45 +107,6 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
         });
     }
 
-    private void safeinfo() {
-        final UserDetails details = new UserDetails();
-        details.setEmail(mailid.getText().toString());
-        details.setPassword(pass.getText().toString());
-        details.setName(name.getText().toString());
-        databaseReference.child("" +name.getText().toString().trim()+pass.getText().toString()+"iSAFE").push().setValue(details, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                if (databaseError == null) {
-
-                    Toast.makeText(SignUpActivity.this, "Data saved Successfully", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
-
-    private void CheckFieldStatus() {
-
-        email = mailid.getText().toString();
-        password = pass.getText().toString();
-
-        if (name.getText().toString() == null || mailid.getText().toString() == null || pass.getText().toString() == null
-                || confirmpass.getText().toString() == null || name.getText().toString().length() <= 0 || mailid.getText().toString().length() < 0 || pass.getText().toString().length() <= 0
-                || confirmpass.getText().toString().length() <= 0) {
-            checkstatus = false;
-            mailid.setError("Check all Fields");
-            mailid.requestFocus();
-        } else {
-            if (!pass.getText().toString().equals(confirmpass.getText().toString())) {
-                Toast.makeText(SignUpActivity.this, "Password does not match", Toast.LENGTH_SHORT).show();
-
-            } else {
-                checkstatus = true;
-            }
-        }
-
-    }
-
     public void UserRegistrationFunction() {
 
 
@@ -167,7 +129,8 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
                             details.setEmail(mailid.getText().toString());
                             details.setPassword(pass.getText().toString());
                             details.setName(name.getText().toString());
-                            databaseReference.child("User").child(firebaseAuth.getCurrentUser().getUid()).push().setValue(details, new DatabaseReference.CompletionListener() {
+                            details.setContactNo(contact.getText().toString());
+                            databaseReference.child("User").child(firebaseAuth.getCurrentUser().getUid())/*.push()*/.setValue(details, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError == null) {
@@ -219,7 +182,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
 //            finish();
         } else {
             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
         }
