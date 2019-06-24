@@ -24,11 +24,14 @@ import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.prateek.isafeassist.fragments.BikesFragment;
+import com.prateek.isafeassist.fragments.BookedServiceFragment;
 import com.prateek.isafeassist.fragments.CarFragment;
 import com.prateek.isafeassist.fragments.DefaultFragment;
 import com.prateek.isafeassist.fragments.LandingFragment;
+import com.prateek.isafeassist.fragments.OrderHistoryFragment;
 import com.prateek.isafeassist.fragments.PaymentFragment;
 import com.prateek.isafeassist.fragments.ServicesFragment;
+import com.prateek.isafeassist.fragments.UserMembershipFragment;
 import com.prateek.isafeassist.fragments.UserProfileFragment;
 import com.prateek.isafeassist.welcome.SplashActivity;
 
@@ -85,10 +88,13 @@ public class MainActivity extends AppCompatActivity
             loadFragment(new LandingFragment());
 
         } else if (id == R.id.nav_orderhist) {
+            loadFragment(new OrderHistoryFragment());
 
         } else if (id == R.id.nav_membership) {
+            loadFragment(new UserMembershipFragment());
 
         } else if (id == R.id.nav_bookedservice) {
+            loadFragment(new BookedServiceFragment());
 
         } else if (id == R.id.nav_logout) {
             alertbuilder();
