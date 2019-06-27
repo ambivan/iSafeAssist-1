@@ -3,6 +3,7 @@ package com.prateek.isafeassist.fragments;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.R;
 import com.prateek.isafeassist.model.Bike;
 import com.prateek.isafeassist.model.User;
+import com.prateek.isafeassist.payments.PaymentActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -164,13 +166,21 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
 
             } else {
                 if (auth.getCurrentUser() != null) {
-                    mFirebaseDatabase.child(auth.getCurrentUser().getUid()).child("Bike Package" + auth.getCurrentUser().getUid()).push().setValue(bike, new DatabaseReference.CompletionListener() {
+                    mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Bike Package").push().setValue(bike, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                             if (databaseError == null) {
 
                                 Toast.makeText(getActivity(), "Data saved Successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent= new Intent();
+                                intent.setClass(getActivity(), PaymentActivity.class);
+                                intent.putExtra("Uniqueid", "Bike");
+                                getActivity().startActivity(intent);
+//                                startActivity(new Intent(getActivity(), PaymentActivity.class));
+/*
                                 loadFragment(new PaymentFragment());
+*/
+
                             } else {
                                 Toast.makeText(getActivity(), "" + databaseError, Toast.LENGTH_SHORT).show();
                             }

@@ -50,7 +50,9 @@
         android:roundIcon="@mipmap/user"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchDriversActivity"></activity>
+        <activity android:name=".payments.PaymentActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".SearchDriversActivity" />
         <activity android:name=".driverdetails.DriverListActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -101,6 +103,9 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDPaPi62YBGSDy2Tr1zCIhiysdIrxer5Dg" />
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_n1n6FybSsiMOHW" />
     </application>
 
 </manifest>

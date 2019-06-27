@@ -3,6 +3,7 @@ package com.prateek.isafeassist.fragments;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.R;
 import com.prateek.isafeassist.model.User;
 import com.prateek.isafeassist.model.UserDetails;
+import com.prateek.isafeassist.payments.PaymentActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,7 +64,7 @@ public class CarFragment extends android.app.Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_car, container, false);
@@ -121,22 +123,26 @@ public class CarFragment extends android.app.Fragment {
                     user.setInsuranceco(carcarinsurance);
                     user.setRegno(carcarregno);
                     user.setInsuranceexp(carcarexpiry);
-                    user.setCid("Car"+auth.getCurrentUser().getUid());
+                    user.setCid("Car" + auth.getCurrentUser().getUid());
 
-                    UserDetails details= new UserDetails();
+                    UserDetails details = new UserDetails();
 
                     if (!(checkBox).isChecked()) {
                         checkBox.setError("Please accept terms before proceeding");
-                    }else{
+                    } else {
                         if (auth.getCurrentUser() != null) {
-                            mFirebaseDatabase.child(auth.getCurrentUser().getUid()).child("Car Package"+auth.getCurrentUser().getUid()).push().setValue(user, new DatabaseReference.CompletionListener() {
+                            mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Car Package").push().setValue(user, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError == null) {
 
 
                                         Toast.makeText(getActivity(), "Data saved Successfully", Toast.LENGTH_SHORT).show();
-                                        loadFragment(new PaymentFragment());
+                                        Intent intent= new Intent();
+                                        intent.setClass(getActivity(), PaymentActivity.class);
+                                        intent.putExtra("Uniqueid", "Car");
+                                        getActivity().startActivity(intent);
+                                        //startActivity(new Intent(getActivity(), PaymentActivity.class));
                                     } else {
                                         Toast.makeText(getActivity(), "" + databaseError, Toast.LENGTH_SHORT).show();
                                     }
