@@ -40,60 +40,95 @@
                 android:textSize="24dp"
                 android:textStyle="bold|normal" />
 
-            <EditText
-                android:id="@+id/bike_user_firstname"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="First Name *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/bike_user_lastname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Last Name *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/bike_user_firstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="First Name *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/bike_user_emailid"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="E-mail ID *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/bike_user_mobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Mobile Number *"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/bike_user_lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Last Name *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/bike_user_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Address Line (1) *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/bike_user_landmark"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Landmark *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_user_emailid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="E-mail ID *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_user_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Mobile Number *"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_user_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Address Line (1) *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_user_landmark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Landmark *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <!--
                         <Spinner
@@ -111,33 +146,51 @@
 
                             android:textAlignment="textStart" />
             -->
-            <EditText
-                android:id="@+id/bike_user_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="City *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/bike_user_state"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="State *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/bike_user_postal"
+                <EditText
+                    android:id="@+id/bike_user_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="City *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Zip/Postal Code*"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_user_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="State *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_user_postal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Zip/Postal Code*"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
 
             <Spinner
@@ -168,69 +221,111 @@
 
                             android:textAlignment="textStart" />-->
 
-            <EditText
-                android:id="@+id/bike_bike_bike"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Bike"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/bike_bike_make"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Bike Make"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/bike_bike_bike"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Bike"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/bike_bike_model"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Bike Model"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/bike_bike_year"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Year*"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/bike_bike_make"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Bike Make"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/bike_bike_regno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Registration Number"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/bike_bike_insurance"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Insurance Company"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/bike_bike_expiry"
+                <EditText
+                    android:id="@+id/bike_bike_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Bike Model"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Insurance Expiry Date"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_bike_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Year*"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_bike_regno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Registration Number"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_bike_insurance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Insurance Company"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bike_bike_expiry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:inputType="number"
+                    android:hint="Insurance Expiry Date"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

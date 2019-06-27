@@ -36,7 +36,7 @@ public class DefaultFragment extends android.app.Fragment {
         bikemore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new BikesFragment());
+                loadFragment(new KnowMorebikeFragment());
             }
         });
 
@@ -44,7 +44,7 @@ public class DefaultFragment extends android.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                loadFragment(new CarFragment());
+                loadFragment(new KnowMoreCarFragment());
             }
         });
         return view;

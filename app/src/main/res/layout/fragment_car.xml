@@ -36,81 +36,125 @@
                 android:textSize="24dp"
                 android:textStyle="bold|normal" />
 
-            <EditText
-                android:id="@+id/fname"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="First Name *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/lname"
+                <EditText
+                    android:id="@+id/fname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="First Name *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Last Name *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/mail"
+                <EditText
+                    android:id="@+id/lname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Last Name *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="E-mail ID *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/mobnumber"
+                <EditText
+                    android:id="@+id/mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="E-mail ID *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Mobile Number *"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/add"
+                <EditText
+                    android:id="@+id/mobnumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Mobile Number *"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Address Line (1) *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/land"
+                <EditText
+                    android:id="@+id/add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Address Line (1) *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Landmark *"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/land"
+                    android:layout_width="match_parent"
 
-            <EditText
-                android:id="@+id/car_city"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Landmark *"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="City *"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/car_city"
+                    android:layout_width="match_parent"
 
-            <EditText
-                android:id="@+id/car_state"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="City *"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="State *"
+                android:layout_height="wrap_content">
 
-                android:imeOptions="actionNext"
+                <EditText
+                    android:id="@+id/car_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="State *"
 
-                android:singleLine="true" />
+                    android:imeOptions="actionNext"
+
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
 
             <!--            <Spinner
@@ -129,16 +173,20 @@
 
                             android:textAlignment="textStart" />-->
 
-
-            <EditText
-                android:id="@+id/zip"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Zip/Postal Code*"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/zip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Zip/Postal Code*"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
 
             <Spinner
@@ -168,70 +216,105 @@
                             android:layout_margin="20dp"
 
                             android:textAlignment="textStart" />-->
-            <EditText
-                android:id="@+id/car_car"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Car"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/car_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Car"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/car_carmake"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Car Make"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/car_carmodel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Car Model"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/car_carmake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Car Make"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/car_year"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Year*"
-                android:imeOptions="actionNext"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/car_regno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Registration Number"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                <EditText
+                    android:id="@+id/car_carmodel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Car Model"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/car_insurance"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Insurance Company"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/car_expiry"
+                <EditText
+                    android:id="@+id/car_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Year*"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:hint="Insurance Expiry Date"
-                android:imeOptions="actionNext"
-                android:singleLine="true" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/car_regno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Registration Number"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/car_insurance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Insurance Company"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/car_expiry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:hint="Insurance Expiry Date"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
