@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,7 @@ public class CarFragment extends android.app.Fragment {
     final String str4[] = {"Bike"};
     boolean status;
     Toolbar toolbar;
+    public  static String carkey;
 
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
 
@@ -131,14 +133,16 @@ public class CarFragment extends android.app.Fragment {
                         checkBox.setError("Please accept terms before proceeding");
                     } else {
                         if (auth.getCurrentUser() != null) {
-                            mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Car Package").push().setValue(user, new DatabaseReference.CompletionListener() {
+                            DatabaseReference ii = mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Car Package").push();
+                            carkey= ii.getKey();
+                            ii.setValue(user, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                                     if (databaseError == null) {
 
 
                                         Toast.makeText(getActivity(), "Data saved Successfully", Toast.LENGTH_SHORT).show();
-                                        Intent intent= new Intent();
+                                        Intent intent = new Intent();
                                         intent.setClass(getActivity(), PaymentActivity.class);
                                         intent.putExtra("Uniqueid", "Car");
                                         getActivity().startActivity(intent);

@@ -44,7 +44,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
     Button button;
     Spinner s1, s2, s3, s4;
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
-
+    public static String key;
     boolean status;
     CheckBox checkBox;
     EditText bike, bikemake, bikemodel, bikeregno, bikeinsurance, bikeexpiry, bikeyear;
@@ -166,7 +166,12 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
 
             } else {
                 if (auth.getCurrentUser() != null) {
-                    mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Bike Package").push().setValue(bike, new DatabaseReference.CompletionListener() {
+                    DatabaseReference ii= mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Bike Package").push() ;
+                    System.out.println(ii.getKey());
+
+                    key = ii.getKey();
+
+                    ii.setValue(bike, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                             if (databaseError == null) {

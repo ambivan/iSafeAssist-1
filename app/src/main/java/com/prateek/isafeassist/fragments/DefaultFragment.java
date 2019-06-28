@@ -17,6 +17,7 @@ import com.prateek.isafeassist.R;
  */
 public class DefaultFragment extends android.app.Fragment {
 
+    public static int var;
     Button bikemore, carmore;
 
     public DefaultFragment() {
@@ -37,6 +38,7 @@ public class DefaultFragment extends android.app.Fragment {
             @Override
             public void onClick(View v) {
                 loadFragment(new KnowMorebikeFragment());
+                var=0;
             }
         });
 
@@ -45,6 +47,7 @@ public class DefaultFragment extends android.app.Fragment {
             public void onClick(View v) {
 
                 loadFragment(new KnowMoreCarFragment());
+                var=1;
             }
         });
         return view;
