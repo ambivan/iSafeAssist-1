@@ -45,7 +45,7 @@ public class CarFragment extends android.app.Fragment {
     final String str4[] = {"Bike"};
     boolean status;
     Toolbar toolbar;
-    public  static String carkey;
+    public static String carkey;
 
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
 
@@ -134,7 +134,7 @@ public class CarFragment extends android.app.Fragment {
                     } else {
                         if (auth.getCurrentUser() != null) {
                             DatabaseReference ii = mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Car Package").push();
-                            carkey= ii.getKey();
+                            carkey = ii.getKey();
                             ii.setValue(user, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
@@ -145,6 +145,13 @@ public class CarFragment extends android.app.Fragment {
                                         Intent intent = new Intent();
                                         intent.setClass(getActivity(), PaymentActivity.class);
                                         intent.putExtra("Uniqueid", "Car");
+                                        intent.putExtra("fname", firstname);
+                                        intent.putExtra("lname", lastname);
+                                        intent.putExtra("regno", carcarregno);
+                                        intent.putExtra("amt", "843.60/-");
+                                        intent.putExtra("key",carkey);
+
+                                        intent.putExtra("vehname", carcar);
                                         getActivity().startActivity(intent);
                                         //startActivity(new Intent(getActivity(), PaymentActivity.class));
                                     } else {

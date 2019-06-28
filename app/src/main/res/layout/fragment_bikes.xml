@@ -23,7 +23,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="iSAFEassist Bike Membership"
+                android:text="iSAFE Assist Bike Membership"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
@@ -313,6 +313,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:textColorHint="#4285F4"
                 android:layout_height="wrap_content">
 
                 <EditText
@@ -320,7 +321,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:inputType="number"
                     android:hint="Insurance Expiry Date"
                     android:imeOptions="actionDone"
                     android:singleLine="true" />

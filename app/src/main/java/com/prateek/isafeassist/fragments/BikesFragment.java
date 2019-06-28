@@ -166,7 +166,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
 
             } else {
                 if (auth.getCurrentUser() != null) {
-                    DatabaseReference ii= mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Bike Package").push() ;
+                    DatabaseReference ii = mFirebaseDatabase.child("User").child(auth.getCurrentUser().getUid()).child("Bike Package").push();
                     System.out.println(ii.getKey());
 
                     key = ii.getKey();
@@ -177,9 +177,16 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
                             if (databaseError == null) {
 
                                 Toast.makeText(getActivity(), "Data saved Successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent= new Intent();
+                                Intent intent = new Intent();
                                 intent.setClass(getActivity(), PaymentActivity.class);
                                 intent.putExtra("Uniqueid", "Bike");
+                                intent.putExtra("fname", firstname);
+                                intent.putExtra("lname", lastname);
+                                intent.putExtra("regno", bikebikeregno);
+                                intent.putExtra("amt", "283.20/-");
+                                intent.putExtra("key",key);
+
+                                intent.putExtra("vehname", bikebike);
                                 getActivity().startActivity(intent);
 //                                startActivity(new Intent(getActivity(), PaymentActivity.class));
 /*

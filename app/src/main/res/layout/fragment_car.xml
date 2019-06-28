@@ -21,7 +21,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="iSAFEassist Car Membership"
+                android:text="iSAFE Assist Car Membership"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 
