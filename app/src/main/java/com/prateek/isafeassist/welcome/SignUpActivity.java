@@ -82,6 +82,9 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
                     if (!pass.getText().toString().equals(confirmpass.getText().toString())) {
                         Toast.makeText(SignUpActivity.this, "Password does not match", Toast.LENGTH_SHORT).show();
 
+                    } else if (contact.length() < 10 || contact.length() > 10) {
+                        contact.setError("Invalid Number");
+
                     } else {
                         checkstatus = true;
                     }
@@ -91,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
 
                     UserRegistrationFunction();
                 } else {
-                    Toast.makeText(SignUpActivity.this, "Enter All the fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Enter All the fields correctly", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -148,7 +151,7 @@ public class SignUpActivity extends AppCompatActivity implements GoogleApiClient
                             startActivity(intent);
                             finish();
                             // If user registered successfully then show this toast message.
-                            Toast.makeText(SignUpActivity.this, "User Registration Successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUpActivity.this, "User Registration Successful", Toast.LENGTH_LONG).show();
 
                         } else {
 

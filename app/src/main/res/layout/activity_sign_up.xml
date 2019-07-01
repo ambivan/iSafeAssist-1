@@ -56,6 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
                         android:hint=" Email-id"
+                        android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
                         android:textAlignment="textStart" />
@@ -109,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
                         android:hint=" Confirm Password"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:singleLine="true"
                         android:textAlignment="textStart" />
