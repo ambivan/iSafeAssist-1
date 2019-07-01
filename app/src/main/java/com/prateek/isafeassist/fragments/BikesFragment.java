@@ -3,6 +3,7 @@ package com.prateek.isafeassist.fragments;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -56,6 +57,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
     private FirebaseDatabase mFirebaseInstance;
     private FirebaseAuth auth;
 
+    ProgressDialog dialog;
 
     Toolbar toolbar;
     final String str1[] = {"City*"};
@@ -105,6 +107,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str3);
         adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s3.setAdapter(adapter3);
+        dialog= new ProgressDialog(getActivity());
 
 
 /*        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str1);
@@ -140,6 +143,9 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
             Toast.makeText(getActivity(), "Enter All Required fields", Toast.LENGTH_SHORT).show();
 
         } else {
+            dialog.setMessage("Loading..");
+            dialog.setCancelable(false);
+            dialog.show();
             final Bike bike = new Bike();
             bike.setFirstname(firstname);
             bike.setLastname(lastname);
@@ -161,6 +167,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
 
 
             if (!(checkBox).isChecked()) {
+                dialog.dismiss();
                 checkBox.setError("Please accept terms before proceeding");
                 Toast.makeText(getActivity(), "Accept terms and conditions ", Toast.LENGTH_SHORT).show();
 
@@ -185,8 +192,10 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
                                 intent.putExtra("regno", bikebikeregno);
                                 intent.putExtra("amt", "283.20/-");
                                 intent.putExtra("key",key);
+                                intent.putExtra("state",userstate);
 
                                 intent.putExtra("vehname", bikebike);
+                                dialog.dismiss();
                                 getActivity().startActivity(intent);
 //                                startActivity(new Intent(getActivity(), PaymentActivity.class));
 /*

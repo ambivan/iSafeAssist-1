@@ -3,6 +3,7 @@ package com.prateek.isafeassist.fragments;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -58,6 +59,7 @@ public class CarFragment extends android.app.Fragment {
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
     private FirebaseAuth auth;
+    ProgressDialog dialog;
 
 
     public CarFragment() {
@@ -90,6 +92,7 @@ public class CarFragment extends android.app.Fragment {
         carexpiry = view.findViewById(R.id.car_expiry);
         carbtn = view.findViewById(R.id.car_buynow_btn);
         s3 = view.findViewById(R.id.car_india_spinner);
+        dialog= new ProgressDialog(getActivity());
 
         auth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
@@ -108,6 +111,10 @@ public class CarFragment extends android.app.Fragment {
 
                     Toast.makeText(getActivity(), "Enter All fields", Toast.LENGTH_SHORT).show();
                 } else {
+                    dialog.setMessage("Loading..");
+                    dialog.setCancelable(false);
+                    dialog.show();
+
                     final User user = new User();
                     user.setFirstname(firstname);
                     user.setLastname(lastname);
@@ -130,6 +137,8 @@ public class CarFragment extends android.app.Fragment {
                     UserDetails details = new UserDetails();
 
                     if (!(checkBox).isChecked()) {
+                        dialog.dismiss();
+
                         checkBox.setError("Please accept terms before proceeding");
                     } else {
                         if (auth.getCurrentUser() != null) {
@@ -150,8 +159,11 @@ public class CarFragment extends android.app.Fragment {
                                         intent.putExtra("regno", carcarregno);
                                         intent.putExtra("amt", "843.60/-");
                                         intent.putExtra("key",carkey);
+                                        intent.putExtra("state",userstate);
 
                                         intent.putExtra("vehname", carcar);
+                                        dialog.dismiss();
+
                                         getActivity().startActivity(intent);
                                         //startActivity(new Intent(getActivity(), PaymentActivity.class));
                                     } else {
