@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.R;
+import com.prateek.isafeassist.TermsConditionsActivity;
 import com.prateek.isafeassist.model.User;
 import com.prateek.isafeassist.model.UserDetails;
 import com.prateek.isafeassist.payments.PaymentActivity;
@@ -46,6 +48,7 @@ public class CarFragment extends android.app.Fragment {
     final String str4[] = {"Bike"};
     boolean status;
     Toolbar toolbar;
+    TextView termscar;
     public static String carkey;
 
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
@@ -79,6 +82,8 @@ public class CarFragment extends android.app.Fragment {
         mobnumber = view.findViewById(R.id.mobnumber);
         add = view.findViewById(R.id.add);
         land = view.findViewById(R.id.land);
+        termscar= view.findViewById(R.id.termscar);
+
         zip = view.findViewById(R.id.zip);
         checkBox = view.findViewById(R.id.termscheckforcar);
         city = view.findViewById(R.id.car_city);
@@ -98,6 +103,13 @@ public class CarFragment extends android.app.Fragment {
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
 
         getallData();
+        termscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), TermsConditionsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         carbtn.setOnClickListener(new View.OnClickListener() {
             @Override

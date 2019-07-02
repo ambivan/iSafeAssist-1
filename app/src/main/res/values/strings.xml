@@ -50,6 +50,122 @@ and enjoy the road. Leave the rest to us, cause we are here for you.
 -Minor Mechanical Repairs \n
 -Number of free service (3) \n
 </string>
+
+    <string name="termsdef">Unless the subject or context otherwise requires, the following words should be interpreted as it is given below:
+Words importing the masculine gender shall be taken to include the feminine gender.
+Words in the singular shall be taken to include the plural and vice versa. \n
+
+ -ASP means the Authorised Service Provider who actually provides the services directly to the Member in terms of this Scheme \n
+ -Breakdown means where the vehicle has developed either a mechanical or electrical failure, or has suffered some accidental damage due to which it has become immobile \n
+ -Facilities means the facilities set out in Schedule A which can be availed by a Member in terms of this Scheme \n
+ -Geographical Area shall mean PAN India, excluding Assam, Arunachal Pradesh, Meghalaya, Manipur, Mizoram, Nagaland, Sikkim, Tirupura, Jammu and Kashmir and Islands. Company shall be entitled to add or modify the geographical area at its discretion \n
+ -Roadside means motorable roads with public access where the Vehicle might have been stranded or met with an accident \n
+ -Scheme means the RSA Services under the RSA Membership Scheme as modified from time to time \n
+ -Towing means moving a vehicle with the help of prime mover when all four wheels are in a condition to roll \n
+ -Vehicle means car, jeep or multi-utility vehicles \n
+ -Wrecker means the vehicle used to position the Vehicle on the road and /or pulling the vehicle with a prime move when one or more wheels are not in a rolling condition. \n
+</string>
+    <string name="termsmem">
+  -A Member is a person who applies for membership under this Scheme and whose membership is accepted by the Company. \n
+  -The RSA service is also available separately without the RSA Membership scheme on chargeable basis. \n
+  -Membership to RSA services shall be specific only to the Vehicle and you can avail the RSA services under a particular card only for the Vehicle it is registered against. You may choose to purchase Memberships for all your Vehicles; however, you cannot split the services of one Vehicle to your other Vehicles, neither can you avail the unutilized services for your other Vehicles. \n
+  -Membership Certificate: Membership under the Scheme is evidenced by a Certificate of Acceptance issued by the Company to the Member. The Member must quote the RSA Membership number for the Vehicle prescribed in the Certificate and quote this number every time in order to avail the facilities offered under the Scheme. \n
+    </string>
+    <string name="termsvehcovered">Only vehicles which are:\n
+
+ -up to 7 (seven) years old from the date of registration and have not exceeded 2,00,000 (two lakh) kilometres.
+ -used only for lawful activities. \n
+ -owned by the Member. \n
+ -driven by a licensed driver whose license is still in force. \n
+ -capable of being driven in public roadways in accordance with the laws for the time being in force shall be eligible for RSA under the RSA Membership. . \n
+    </string>
+    <string name="termsvalidity">
+ -Membership to RSA shall correspond with the RSA Membership and shall be valid for one (1) year from the date of activation, provided the membership is not cancelled / terminated before the date of expiry of the term. \n
+ -No refund or Credit will be allowed in case of cancellation or termination of membership. \n
+    </string>
+    <string name="termsmode">
+ -A Member who wishes to avail the Facilities offered by the Scheme shall call the number of the Call Center – 1800 419 7779. The Call Centre shall arrange for the Facilities required by the Member after the Member establishes the identity and credentials of the Vehicle and Card number. \n
+ -All requests for the Facilities must be made only through the specified Call Centre. The Member cannot avail any Facility directly from the ASP without being routed through the Call Centre. \n
+    </string>
+    <string name="termsclearance">
+   -If the Vehicle is involved in any accident or event and clearance of government agencies such as police or other security forces is required for attending to the breakdown or removal of the Vehicle, the Member shall solely be responsible for obtaining the required consents and approvals from these agencies. Company or the authorized service providers shall not undertake the obtaining of such permissions. Member also agrees that no claim shall lie on the Company or the authorized service providers due to any delay or non-provision of services during such events. \n
+     </string>
+    <string name="termsamt">
+ -Details of the Facilities are set out in Schedule A. \n
+ -All payments due to the ASP as a result of the Member having availed the ASP\'s services shall be made directly to such ASP. \n
+</string>
+    <string name="termsexclusion"> -The Member accepts and acknowledges that the Company does not render any services under the Scheme and its role and responsibility is limited to facilitating the Member in availing breakdown and repair services from the ASP at the place of break down or accident. The Member accepts and acknowledges that the above services availed by the Member are rendered only by respective ASP. \n
+ -Company shall be under no liability whatsoever to the Member in respect of any loss or damage arising directly or indirectly out of any delay in or non-delivery of, defect / deficiency in the services/parts provided by the respective service providers. \n
+ -The ASPs are not agents of the Company and the Member shall deal with the ASPs directly, at his own risk and cost. \n
+ -Members are advised to take an acknowledgment from the ASP for the list of Accessories/ extra fittings and other belongings in the Vehicle at the time of ASP taking possession of the Vehicle and to verify these items when delivery is taken back by them. Claim for loss of /damage to items, if any, should be taken up with the ASP directly. Company shall not be responsible for any such claims, damage/loss or any deficiency of service of the ASP. \n
+    </string>
+    <string name="termsforce">
+ -Company or authorized service providers are not responsible for the non-performance of or delay in performance of the RSA services if such non-performance is due to Force Majeure situations. Force Majeure situations for RSA include but is not limited to acts of God like adverse weather conditions, natural calamities, changes in laws of the country or rules and regulations for the time being in force, orders of statutory or government authorities, war or war like situations, riots, industrial disputes, road blocks, traffic diversions, adverse weather conditions and every other circumstances beyond the control of the Company or the authorized service providers. \n
+ -Notwithstanding the above, in case of natural calamities, the services rendered by the Company will be chargeable to the Member. \n
+    </string>
+    <string name="termsbreach">
+ -Company is entitled to terminate the RSA Membership by notice in writing to the Member in the event of any breach of the terms and conditions by the Member. The termination is without prejudice to the rights of the Company to recover from the Member any loss directly or indirectly suffered by the Company as a result of the breach of the terms and conditions. \n
+ -Company is also entitled to terminate the Membership by notice in writing to the Member in the event if the Member or his agent behaves in an unruly manner or uses un-parliamentary or abusive language against any of the employees / representatives of the Company or the employees / representatives of the ASPs. \n
+ -Company is also entitled to terminate the Membership by notice in writing to the Member in the event if the Vehicle covered under the Scheme is confiscated by the relevant authorities, on charges of involvement in any unlawful activities. \n
+ -A Member may cancel the Membership on his/her own by surrendering his/her membership during its validity period. The Member will not be eligible for refund of any membership fee paid in the event of surrendering of Membership. \n
+ -Notwithstanding anything contained herein maximum liability of the Company or the maximum amount of damages payable by the Company shall be limited to the amount of membership fees paid by the Member for that particular year. \n
+    </string>
+    <string name="termsexclude">
+ -It is understood that the Company shall not in any case be liable in respect of any loss or damage arising directly or indirectly out of any defect/deficiency in service provided by the ASP. \n
+ -General Exclusions where Company or the ASP shall refuse services are mentioned in Schedule. \n
+    </string>
+    <string name="termstimetaken">
+ -This refers to the time taken for the ASP to reach the breakdown/accident location on receipt of information. \n
+ -Under normal conditions, the ASP shall reach the Member within a reasonable time. However the agreed timeframes are only indicative and are dependent on weather conditions, traffic situations, location of the breakdown site etc. While the Company and the ASP will put its best efforts to reach the break down/accident location within the above timeframes, this shall not be construed as guarantee by the Company or the ASP to reach the said location within indicated time frame. \n
+    </string>
+    <string name="termsmisc">
+ -It is understood that after the performance of any or all of the services contemplated herein the vehicle shall not become roadworthy. The repairs/services performed are only temporary and assistive in nature and the Member is advised to get the vehicle repaired at the workshop of his choice to make it completely roadworthy. \n
+ -Company shall not be responsible for any additional damage or loss to the vehicle or any additional scratches/dents caused to the vehicle due to any deficiency in service attributable to the ASP. Accordingly Company shall not be responsible for the fittings or any other belongings of the Member. The Member is advised to obtain an acknowledgement of the belongings/fittings and other details before the actual service are performed by the ASP. \n
+ -Company shall be entitled to add, delete, or modify the price or category of the Cards, services under the Scope of Services or list of Authorized Service Outlets in this package at its sole discretion. You are requested to check the Company website or get in touch with the outlet to know the updated information. \n
+ -Courts in Chennai shall have exclusive jurisdiction with respect to any disputes and/or claims arising out of or in connection with this Scheme whether during its subsistence or thereafter. \n
+ -The Company shall not be liable for any type of consequential, indirect, special or punitive losses, or any damages, cost, and expense by whatsoever name called or for any liabilities not directly caused by any breach of the Terms and Conditions. \n
+ -Notwithstanding anything contained herein the maximum liability of the Company or the maximum amount of damages payable by the Company shall be limited to the amount of Membership fees paid by the Member for the particular Validity Period. \n
+    </string>
+
+    <string name="scheduleA">
+ This refers to the services that shall be render at the Roadside, when the Vehicle is stranded due to a breakdown or Accident. Labor Assistance for minor mechanical and electrical repairs, arranging for taxi, arranging for wrecker services, arranging for towing services etc., as detailed below: (Consumables and Parts shall be charged at actuals to the end Member). \n
+
+ -On site – Minor Repairs of the Covered Vehicle: \n
+   Minor electrical work and mechanical work, fuel line bleeding and fan belt replacement will be covered by the Company, labor provided shall be free and parts will be charged at actuals. \n
+ -Locked or Lost Keys: \n
+   In case the keys of the covered Vehicle are locked-in, the Company will help the Member in getting the keys out of the Vehicle. Any breakage of glass or door beading, if required shall be done only with the prior approval of the Member and any damages to the Vehicles, costs or incidental charges for the same shall be borne by the Member. In case the keys are lost and the above mentioned service cannot be provided, the Company shall arrange to tow the vehicle to a nearest safe place. Duplicate key will be arranged if the Vehicle is within 50 km radius of the Member \’s home town registered in the records of the Company. If beyond 50 kms, the Company shall provide all reasonable assistance to the Member, however the Member shall have to arrange for a duplicate set of keys using their own effort at their own cost. To avoid misuse of this Service, this Service shall be restricted to and shall only be provided to the Member upon the Member furnishing valid documents establishing the ownership of the Vehicle. \n
+ -Fuel delivery:
+   The Company will co-ordinate in getting fuel (petrol or diesel only) from the nearest fuel station and provide it to the Vehicle at its breakdown location. The actual charges for the fuel will have to be borne by the Member. However due to local regulations, the Company may require the owner or driver of the Vehicle to accompany to the fuel station (petrol or diesel only). Cost of fuel shall be paid by the Member on the spot. \n
+ -Battery jump start: \n
+   If the battery of the Vehicle has discharged, then the Company will arrange the jump starting of the battery. No replacement battery will be provided by the Company. \n
+ -Flat Tyre change: \n
+   If the Vehicle has a punctured or burst tyre, Company will arrange to change it with the spare tyre available in the Member Vehicle. In case where spare tyre cannot be used, Company shall either tow the Vehicle to the nearest tyre repair shop or accompany the Member to the nearest tyre repair shop to buy a spare tyre and back to vehicle. The Member shall pay the cost of the tyre directly to the tyre repair shop,towing vendor,Company representative and Company shall not be liable for the quality or workmanship of such repairs, fittings. \n
+ -Towing: \n
+   Coordination and Towing for the first 50 Kms shall be free. Towing beyond 50 Kms shall beis chargeable as per applicable rates. Towing charges shall be based on availability and type of towing vehicle, local conditions and rates etc. The excess kms Cost shall be borne by the Member and shall be paid to the towing service provider/Company representative on the spot. Company shall not be liable for any deficiency of service by third party service providers. \n
+ -Taxi Arrangement: \n
+   Arrangement of Taxi to the place of Member\'s choice shall be made, if Member so requires, as alternate travelling arrangement in case of major breakdown or accident. The model and capacity etc., of the taxi so arranged will be as per the availability of the taxi and at the discretion of the Company and Company does not guarantee that the features/facilities of the stranded Vehicle of the Member shall be available in the taxi. Company will arrange the coordination of the taxi but the actual charges for the taxi service, bhatta etc. shall be borne by the Member and will be paid directly to the taxi service provider. Company shall not be liable for any deficiency of service by third party service providers. \n
+ -Load transfer coordination: \n
+   Coordination for the load transfer shall be free, actual charges for the load transfer such as labor charges for transfer and other incidental charges etc. shall be borne by the Member and will be paid directly to the service provider on the spot. Company shall not be liable for any deficiency of service by third party service providers. \n
+ -Medical Assistance: \n
+   Company shall locate the nearest hospital or health care provider for the Customer and reply to any specific queries only relating to the location or availability of doctors and hospitals nearby. Company shall not be responsible for any advice of medical or surgical nature or for prescribing any medication to the Customer. All the charges / expenses pertaining to these services will be borne by the Member directly. Company\’s responsibility pertaining to this Service shall end with the sharing of the details, however, the final decision shall be vested with the Member. Company shall not be responsible for the decision taken by the Member there on. All costs of such service shall be borne by the Member and Company shall not be liable for any deficiency of service by third parties. \n
+    </string>
+    <string name="scheduleB">
+ -Vehicle is involved in motor racing, adventure events, off road rides, rallies, speed or duration tests, practice runs or operated outside official roads. \n
+ -Vehicles used in non-motoring roads \n
+ -Any vehicle which has not been maintained regularly as per manufacturer guidelines and thus is not in roadworthy condition. \n
+ -Any event where breakdown is caused by deliberately inflicted damage, vandalism or participation in a criminal act or offence. \n
+ -Assistance is required as a result of wars, riots, uprising, mass political demonstrations, pillage, strike, use for military purposes or acts of terrorism, earthquake damage, freak weather conditions, any natural calamity that makes the provision of the assistance impossible, atmospheric phenomena, nuclear transformation phenomena or radiation caused by artificial acceleration of atomic particles. \n
+ -The immobilization is resulting from damage caused by intervention of the police or other authorities. \n
+ -Any history where the Member has on prior occasions misused or abused the services. \n
+ -Accidents resulting from the illegitimate removal of the Vehicle. \n
+ -Accidents or breakdowns that occur when the Member or the authorized driver have infringed upon the regulatory ordinances as far as the requisites and number of persons transported, weight and means of things and animals that can be transported or the form of handling them etc. \n
+ -Any vehicle involved in or liable to be involved in legal case prior to or post immobilization or which is to be kept in an as-is state as evidence or for any legal requirements. \n
+ -Vehicle lacking documentation or requirements such as technical inspection of the Vehicles, obligatory insurance etc. legally necessary to ply on public roads.\n
+ -Breakdowns or accidents caused by fuels, mineral essences, and other inflammable, explosive or toxic materials being transported in the Vehicle. \n
+ -Any large or wild animals being transported in the Vehicle. \n
+ -Any damage resulting from the use of the vehicle against the recommendations of the owner manual. \n
+ -Any situation or event which may adversely impact the providing of the services. \n
+    </string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>

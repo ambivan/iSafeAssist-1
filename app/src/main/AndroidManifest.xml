@@ -50,8 +50,10 @@
         android:roundIcon="@mipmap/user"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".payments.TransactionActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".TermsConditionsActivity"></activity>
+        <activity
+            android:name=".payments.TransactionActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".payments.PaymentActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

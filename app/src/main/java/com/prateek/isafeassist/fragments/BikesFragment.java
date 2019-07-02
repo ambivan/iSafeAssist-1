@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.R;
+import com.prateek.isafeassist.TermsConditionsActivity;
 import com.prateek.isafeassist.model.Bike;
 import com.prateek.isafeassist.model.User;
 import com.prateek.isafeassist.payments.PaymentActivity;
@@ -41,7 +42,7 @@ import com.prateek.isafeassist.payments.PaymentActivity;
  */
 public class BikesFragment extends android.app.Fragment implements View.OnClickListener {
 
-    TextView text1, text2;
+    TextView text1, text2, termsbike;
     Button button;
     Spinner s1, s2, s3, s4;
     EditText fname, lname, email, mobnumber, add, land, zip, city, state;
@@ -79,6 +80,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         text1 = container.findViewById(R.id.text1);
         text2 = container.findViewById(R.id.text2);
         button = view.findViewById(R.id.bikes_buynow_btn);
+        termsbike= view.findViewById(R.id.termsbike);
         /*s1 = view.findViewById(R.id.bike_city_spinner);
         s2 = view.findViewById(R.id.bike_state_spinner);
         */
@@ -108,6 +110,13 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s3.setAdapter(adapter3);
         dialog= new ProgressDialog(getActivity());
+        termsbike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), TermsConditionsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 /*        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str1);
