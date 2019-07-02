@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".fragments.UserMembershipFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="178dp"
+        android:layout_gravity="top"
+        android:id="@+id/pimg"
+        android:foregroundGravity="top"
+        android:src="@drawable/isafemembership" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#fff"
+            android:id="@+id/layouttohide"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:id="@+id/dizzyface"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/dizzyface" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:id="@+id/nomembershipyet"
+                android:text="No memberships yet"
+                android:textColor="#000"
+                android:textSize="24dp" />
+
+            <Button
+                android:id="@+id/buy_now_membership"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="Buy Now"
+                android:textColor="#4285F4" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/membershipdetails"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>
