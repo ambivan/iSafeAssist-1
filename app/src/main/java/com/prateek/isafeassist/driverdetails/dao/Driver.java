@@ -12,14 +12,19 @@ public class Driver {
     String sublocality;
     String state;
     String country;
+    String status;
+    String requestfound;
+
 
 
     public Driver() {
 
     }
 
-    public Driver(String name, String contact, String mail, String pass, String did,String latitude, String longitude, String driverid, String sublocality, String state, String country) {
+    public Driver(String requestfound,String status,String name, String contact, String mail, String pass, String did,String latitude, String longitude, String driverid, String sublocality, String state, String country) {
         this.name = name;
+        this.requestfound= requestfound;
+        this.status= status;
         this.contact = contact;
         this.mail = mail;
         this.pass = pass;
@@ -30,6 +35,22 @@ public class Driver {
         this.sublocality = sublocality;
         this.state = state;
         this.country = country;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRequestfound() {
+        return requestfound;
+    }
+
+    public void setRequestfound(String requestfound) {
+        this.requestfound = requestfound;
     }
 
     public String getLatitude() {

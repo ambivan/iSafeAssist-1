@@ -6,6 +6,10 @@ public class UserDetails {
     String password;
     String contactNo;
     String signupid;
+    String lat;
+    String longi;
+    String requesting;
+
 
     public String getSignupid() {
         return signupid;
@@ -33,6 +37,30 @@ public class UserDetails {
         this.password = password;
         this.contactNo = contactNo;
         this.signupid = signupid;
+    }
+
+    public String getRequesting() {
+        return requesting;
+    }
+
+    public void setRequesting(String requesting) {
+        this.requesting = requesting;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLongi() {
+        return longi;
+    }
+
+    public void setLongi(String longi) {
+        this.longi = longi;
     }
 
     public String getName() {

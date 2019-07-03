@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -21,8 +22,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.prateek.isafeassist.fragments.BikesFragment;
 import com.prateek.isafeassist.fragments.BookedServiceFragment;
 import com.prateek.isafeassist.fragments.CarFragment;
@@ -40,6 +47,11 @@ public class MainActivity extends AppCompatActivity
 
     Button bike_knowmore, car_knowmore;
     ImageButton backbtn;
+    FirebaseAuth firebaseAuth;
+    DatabaseReference databaseReference;
+    TextView textView;
+    View header;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +65,33 @@ public class MainActivity extends AppCompatActivity
         bike_knowmore = findViewById(R.id.knowmore_bike_btn);
         //backbtn = findViewById(R.id.backbutton);
         car_knowmore = findViewById(R.id.know_more_car_btn);
+        firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(firebaseAuth.getCurrentUser().getUid());
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView= findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.child("name").getValue(String.class);
+                //textView.setText(name);
+                header= navigationView.getHeaderView(0);
+                textView = header.findViewById(R.id.header_name);
+                textView.setText(name);
+                System.out.println(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

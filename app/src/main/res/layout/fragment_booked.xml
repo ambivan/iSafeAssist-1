@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     tools:context=".fragments.BookedServiceFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/sericelayouttohide"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_gravity="center"
-                android:src="@drawable/dizzyface"
-                android:layout_marginTop="50dp"/>
+                android:id="@+id/dizzz"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/dizzyface" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No Services Booked yet"
-                android:textSize="24dp"
-                android:padding="10dp"
-                android:textColor="#000"
                 android:layout_gravity="center"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:padding="10dp"
+                android:id="@+id/tttt"
+                android:text="No Services Booked yet"
+                android:textColor="#000"
+                android:textSize="24dp" />
         </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/service_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </ScrollView>
+    </LinearLayout>
 
 
-</FrameLayout>
+</RelativeLayout>
