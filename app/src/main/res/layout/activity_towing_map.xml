@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,21 @@
     tools:context=".maps.TowingMapActivity">
 
 
+    <Button
+        android:id="@+id/calltowingbtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round_btn_yellow"
+        android:padding="5dp"
+        android:text="Book Now"
+        android:textColor="#000" />
+
     <LinearLayout
+        android:id="@+id/mmm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -37,8 +51,10 @@
 
 
     <LinearLayout
+        android:id="@+id/llllll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/mmm"
         android:orientation="horizontal">
 
         <EditText
@@ -57,10 +73,10 @@
             android:id="@+id/gotowing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
-            android:gravity="center"
+            android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:gravity="center"
             android:text="Go" />
 
 
@@ -71,7 +87,10 @@
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llllll">
+
+    </fragment>
 
 
-</LinearLayout>
+</RelativeLayout>

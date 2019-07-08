@@ -3,6 +3,7 @@ package com.prateek.isafeassist.maps;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -24,6 +26,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -83,6 +87,7 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
     Button btn_find;
     List<Address> addresses;
     Geocoder geocoder;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     String addr = "";
     static int m = 0;
@@ -95,11 +100,14 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_map);
         checkLocationPermission();
+        View bottom = findViewById(R.id.bottom_sheet);
 
 //        HomePageActivity.frag = 3;
+        bottomSheetBehavior = BottomSheetBehavior.from(bottom);
 
         auth = FirebaseAuth.getInstance();
         reference = FirebaseDatabase.getInstance().getReference();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         etLocation = (EditText) findViewById(R.id.editplace);
         btn_find = (Button) findViewById(R.id.btnsearch);
@@ -111,6 +119,15 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
         dialog.setMessage("Fetching Location..");
         dialog2.setMessage("Looking for Drivers..");
         dialog.show();
+
+        etLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                callservice.setVisibility(View.GONE);
+
+            }
+        });
 
         client = LocationServices.getFusedLocationProviderClient(ServiceMapActivity.this);
 
@@ -196,6 +213,13 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
             @Override
             public void onClick(View v) {
                 // Getting reference to EditText to get the user input location
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                callservice.setVisibility(View.VISIBLE);
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
 
                 // Getting user input location
                 loc = etLocation.getText().toString();
@@ -254,15 +278,11 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mGoogleMap = googleMap;
-
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
-
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(ServiceMapActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
@@ -277,7 +297,6 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
         } else {
 
             mGoogleMap.setMyLocationEnabled(true);
-
 
         }
 
@@ -464,11 +483,11 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                                 String dcontact = ds.child("driverphone").getValue(String.class);
                                 String dlat = ds.child("driverlat").getValue(String.class);
                                 String dlong = ds.child("driverlong").getValue(String.class);
-                                String ulat= ds.child("lat").getValue(String.class);
-                                String ulong= ds.child("longi").getValue(String.class);
+                                String ulat = ds.child("lat").getValue(String.class);
+                                String ulong = ds.child("longi").getValue(String.class);
 
-                                System.out.println(dname+" "+dcontact+" ");
-                                if(dname!=null) {
+                                System.out.println(dname + " " + dcontact + " ");
+                                if (dname != null) {
                                     try {
                                         addresses = geocoder.getFromLocation(Double.parseDouble(ulat), Double.parseDouble(ulong), 1);
                                     } catch (IOException e) {
@@ -505,7 +524,6 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                     //startActivity(new Intent(ServiceMapActivity.this, SearchDriversActivity.class));
 
                 }
-
 
             }
         });
@@ -607,7 +625,7 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
         }
     }
 
-    private void UploadUserLocation(String l1, String l2) {
+    /*private void UploadUserLocation(String l1, String l2) {
 
         UserLocationService userLocationService = new UserLocationService();
 
@@ -618,5 +636,5 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
         userLocationService.setLongitude(l2);
 
 
-    }
+    }*/
 }

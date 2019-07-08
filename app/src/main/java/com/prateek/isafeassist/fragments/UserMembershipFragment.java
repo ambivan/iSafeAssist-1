@@ -48,7 +48,6 @@ public class UserMembershipFragment extends android.app.Fragment {
     TextView txt;
     LinearLayout layout;
     List<membermodel> list = new ArrayList<>();
-    List<membermodel> list2 = new ArrayList<>();
     public static int ckey;
     public static int bkey;
 
@@ -76,14 +75,6 @@ public class UserMembershipFragment extends android.app.Fragment {
         dialog.setCancelable(false);
         dialog.show();
 
-/*
-        image.setVisibility(View.VISIBLE);
-        txt.setVisibility(View.VISIBLE);
-        buynow.setVisibility(View.VISIBLE);
-        pimg.setVisibility(View.GONE);
-        layout.setVisibility(View.VISIBLE);
-*/
-
         loadMembership(recyclerView);
 
 
@@ -96,9 +87,11 @@ public class UserMembershipFragment extends android.app.Fragment {
                 FragmentTransaction fragmentTransaction = fm.beginTransaction();
 // replace the FrameLayout with new Fragment
                 fragmentTransaction.replace(R.id.frame_container, new DefaultFragment());
-                fragmentTransaction.commit(); // save the changes
+                fragmentTransaction.commit();
+// save the changes
             }
         });
+
         return view;
     }
 
@@ -117,8 +110,8 @@ public class UserMembershipFragment extends android.app.Fragment {
                     String expdate = ds.child("Payments").child("expirydate").getValue(String.class);
                     String price = "₹ 240/-";
                     String transacid = ds.child("Payments").child("membershipid").getValue(String.class);
-                    if(buydate!=null && expdate!=null && transacid!=null && buydate.length()>0 && expdate.length()>0
-                            && transacid.length()>0) {
+                    if (buydate != null && expdate != null && transacid != null && buydate.length() > 0 && expdate.length() > 0
+                            && transacid.length() > 0) {
                         model.setPurchased(buydate);
                         model.setExpiry(expdate);
                         model.setAvailed(price);
@@ -126,7 +119,7 @@ public class UserMembershipFragment extends android.app.Fragment {
                         list.add(model);
 
                     }
-                    if (list==null) {
+                    if (list == null) {
                         layout.setVisibility(View.VISIBLE);
                         image.setVisibility(View.VISIBLE);
                         txt.setVisibility(View.VISIBLE);
@@ -141,9 +134,7 @@ public class UserMembershipFragment extends android.app.Fragment {
                         pimg.setVisibility(View.VISIBLE);
                         recyclerView.setHasFixedSize(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
                         adapter = new MembershipAdapter(getActivity(), list);
                         recyclerView.setAdapter(adapter);
                         dialog.dismiss();
@@ -151,8 +142,6 @@ public class UserMembershipFragment extends android.app.Fragment {
                     }
 
                 }
-
-
             }
 
             @Override
@@ -174,8 +163,8 @@ public class UserMembershipFragment extends android.app.Fragment {
                     String transacid = ds.child("Payments").child("membershipid").getValue(String.class);
                     String price = "₹ 720/-";
 
-                    if(buydate!=null && expdate!=null && transacid!=null && buydate.length()>0 && expdate.length()>0
-                    && transacid.length()>0){
+                    if (buydate != null && expdate != null && transacid != null && buydate.length() > 0 && expdate.length() > 0
+                            && transacid.length() > 0) {
                         model.setPurchased(buydate);
                         model.setExpiry(expdate);
                         model.setAvailed(price);
@@ -191,7 +180,8 @@ public class UserMembershipFragment extends android.app.Fragment {
                     /*image.setVisibility(View.VISIBLE);
                     txt.setVisibility(View.VISIBLE);
                     buynow.setVisibility(View.VISIBLE);
-                    */dialog.dismiss();
+                    */
+                    dialog.dismiss();
 
                 } else {
                     /*layout.setVisibility(View.GONE);

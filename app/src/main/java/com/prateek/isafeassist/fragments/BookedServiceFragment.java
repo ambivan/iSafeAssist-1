@@ -77,12 +77,15 @@ public class BookedServiceFragment extends android.app.Fragment {
 
                 //System.out.println(dataSnapshot.getKey());
 
+                list.clear();
                 String dname= dataSnapshot.child("drivername").getValue(String.class);
                 String dcontact= dataSnapshot.child("driverphone").getValue(String.class);
+                String dotp= dataSnapshot.child("OTP").getValue(String.class);
 
                 servicemodel model= new servicemodel();
                 model.setDname(dname);
                 model.setDcontact(dcontact);
+                model.setDotp(dotp);
                 list.add(model);
 
                 if(list==null){

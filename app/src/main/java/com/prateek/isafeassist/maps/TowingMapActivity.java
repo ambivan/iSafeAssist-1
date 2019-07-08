@@ -2,11 +2,15 @@ package com.prateek.isafeassist.maps;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -16,6 +20,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -36,17 +41,39 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.prateek.isafeassist.MainActivity;
 import com.prateek.isafeassist.R;
+import com.prateek.isafeassist.driverdetails.dao.Driver;
+import com.prateek.isafeassist.model.UserLocationService;
+import com.prateek.isafeassist.model.towingloc;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class TowingMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+public class TowingMapActivity extends FragmentActivity implements
+        OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener {
 
-/*    private GoogleMap mMap;*/
-MarkerOptions markerOptions;
+    /*    private GoogleMap mMap;*/
+    MarkerOptions markerOptions;
     LatLng latLng;
     GoogleMap mGoogleMap;
     SupportMapFragment mapFrag;
@@ -54,28 +81,49 @@ MarkerOptions markerOptions;
     Marker mCurrLocationMarker;
     GoogleApiClient mGoogleApiClient;
     Toolbar toolbar;
-
     EditText etstart, etend;
     static String loc;
-    Button btn_find;
-
+    Button btn_find, btn_book;
     String addr = "";
-
-
     static int m = 0;
-
-
     public FusedLocationProviderClient client;
-
+    static double lati, longi;
+    ProgressDialog progressDialog;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_towing_map);
         checkLocationPermission();
+        auth = FirebaseAuth.getInstance();
+        etstart = findViewById(R.id.towingstart);
+        etend = findViewById(R.id.towingend);
+        btn_find = findViewById(R.id.gotowing);
 
-        etstart= findViewById(R.id.towingstart);
-        btn_find= findViewById(R.id.gotowing);
+        btn_book = findViewById(R.id.calltowingbtn);
+
+        btn_book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String add = etend.getText().toString();
+                if (add == null || add.length() < 0) {
+                    etend.setError("Enter Drop Location");
+                    etend.requestFocus();
+                } else {
+
+                    new GeocoderTask().execute(add);
+
+                }
+            }
+        });
+        btn_find.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //////////System.out.println();
+            }
+        });
+
         client = LocationServices.getFusedLocationProviderClient(TowingMapActivity.this);
 
         client.getLastLocation().addOnSuccessListener(TowingMapActivity.this, new OnSuccessListener<Location>() {
@@ -90,6 +138,8 @@ MarkerOptions markerOptions;
                 try {
                     addressList1 = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
+                    lati = location.getLatitude();
+                    longi = location.getLongitude();
                     if (addressList1 != null && addressList1.size() > 0) {
                         Log.i("PlaceInfo", addressList1.get(0).toString());
 
@@ -99,7 +149,9 @@ MarkerOptions markerOptions;
                                 addr1 += addressList1.get(0).getAddressLine(i) + " ";
 
                                 etstart.setText(addr1);
+                                System.out.println("addr1 " + addr1);
                                 loc = etstart.getText().toString();
+
 
                                 etstart.addTextChangedListener(new TextWatcher() {
                                     @Override
@@ -262,7 +314,10 @@ MarkerOptions markerOptions;
                             if (addressList.get(0).getAddressLine(i) != null) {
                                 addr += addressList.get(0).getAddressLine(i) + " ";
 
+/*
                                 etstart.setText(addr);
+*/
+                                System.out.println("addr " + addr);
                                 loc = etstart.getText().toString();
 
                                 etstart.addTextChangedListener(new TextWatcher() {
@@ -348,12 +403,9 @@ MarkerOptions markerOptions;
         //move map camera
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
 
-
     }
 
-
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-
 
     private class GeocoderTask extends AsyncTask<String, Void, List<Address>> {
 
@@ -397,9 +449,72 @@ MarkerOptions markerOptions;
 
                 markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
+                System.out.println("latlng" + latLng);
                 markerOptions.title(etstart.getText().toString());
 
+                System.out.println("distance " + CalculationByDistance(lati, longi, latLng.latitude, latLng.longitude));
 
+                final double distance = CalculationByDistance(lati, longi, latLng.latitude, latLng.longitude);
+                if (distance > 25000) {
+                    Toast.makeText(TowingMapActivity.this, "Towing is Not Possible", Toast.LENGTH_SHORT).show();
+                } else {
+                    new AlertDialog.Builder(TowingMapActivity.this)
+                            .setTitle("Route Verification")
+                            .setMessage("Do you want to check this Route? If No, your request for towing will be processed.")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                            Uri.parse("http://maps.google.com/maps?saddr=" + lati + "," + longi + "&daddr=" + latLng.latitude +
+                                                    "," + latLng.longitude));
+                                    startActivity(intent);
+
+                                }
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Driver");
+                                    databaseReference.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                String key = ds.getKey();
+                                                Driver driver = new Driver();
+                                                driver.setRequestfound("1");
+                                                HashMap<String, Object> hashMap = new HashMap<>();
+                                                hashMap.put("request", "1");
+                                                databaseReference.child(key).updateChildren(hashMap);
+                                                System.out.println("keyyy" + key);
+
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    ProgressDialog dialog1 = new ProgressDialog(TowingMapActivity.this);
+                                    dialog1.setMessage("Checking for Availability of Drivers..");
+                                    dialog1.setCancelable(false);
+                                    dialog1.show();
+                                    drawRoute(latLng, new LatLng(lati, longi), distance);
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                    //drawPolylines(latLng, new LatLng(lati, longi));
+
+
+                }
                 mGoogleMap.addMarker(markerOptions);
 
                 // Locate the first location
@@ -409,6 +524,7 @@ MarkerOptions markerOptions;
             }
         }
     }
+
 
     private void checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(TowingMapActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -423,7 +539,7 @@ MarkerOptions markerOptions;
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(TowingMapActivity.this)
                         .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setMessage("This app needs the Location permission to get better results.")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -444,49 +560,231 @@ MarkerOptions markerOptions;
         }
     }
 
-}
+
+    public double CalculationByDistance(double initialLat, double initialLong,
+                                        double finalLat, double finalLong) {
+        int R = 6371; // km (Earth radius)
+        double dLat = toRadians(finalLat - initialLat);
+        double dLon = toRadians(finalLong - initialLong);
+        initialLat = toRadians(initialLat);
+        finalLat = toRadians(finalLat);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(initialLat) * Math.cos(finalLat);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c * 1000;
 
 
+    }
+
+    public double toRadians(double deg) {
+        return deg * (Math.PI / 180);
+    }
+
+    private void drawRoute(final LatLng latLng, final LatLng latLng1, final double distance) {
+
+        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("User").child(auth.getCurrentUser().getUid());
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String uname= dataSnapshot.child("name").getValue(String.class);
+                String ucontact= dataSnapshot.child("contactNo").getValue(String.class);
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Towing Requests").child(auth.getCurrentUser().getUid());
+                towingloc locationService = new towingloc();
+                locationService.setStartlat(String.valueOf(latLng1.latitude));
+                locationService.setStartlong(String.valueOf(latLng1.longitude));
+                locationService.setEndlat(String.valueOf(latLng.latitude));
+                locationService.setEndlong(String.valueOf(latLng.longitude));
+                locationService.setDistance(String.valueOf(distance));
+                locationService.setRequesting("1");
+                locationService.setUname(uname);
+                locationService.setUcontact(ucontact);
+                databaseReference.setValue(locationService);
 
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Driver");
 
 
-
-
-
-
-
-
-
-
+    }
 
 /*
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+    private void drawPolylines(LatLng latLng, LatLng lng) {
+        progressDialog = new ProgressDialog(TowingMapActivity.this);
+        progressDialog.setMessage("Please Wait, Polyline between two locations is building.");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        */
+/*//*
+/ Checks, whether start and end locations are captured
+        // Getting URL to the Google Directions API
+        String url = getDirectionsUrl(lng, latLng);
+        Log.d("url", url + "");
+
+        DownloadTask downloadTask = new DownloadTask();
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);*//*
+
+    }
+
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
+
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+
+        // Sensor enabled
+        String sensor = "sensor=false";
+        String mode = "mode=driving";
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode;
+
+        // Output format
+        String output = "json";
+
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+
+
+        return url;
+    }
+
+    */
+/**
+ * A method to download json data from url
+ *//*
+
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(strUrl);
+
+            urlConnection = (HttpURLConnection) url.openConnection();
+
+            urlConnection.connect();
+
+            iStream = urlConnection.getInputStream();
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+
+            StringBuffer sb = new StringBuffer();
+
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+
+            data = sb.toString();
+
+            br.close();
+            Log.d("data", data);
+
+        } catch (Exception e) {
+            Log.d("Exception", e.toString());
+        } finally {
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
+
+    private class DownloadTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... url) {
+
+            String data = "";
+
+            try {
+                data = downloadUrl(url[0]);
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            ParserTask parserTask = new ParserTask();
+
+
+            parserTask.execute(result);
+
+        }
+    }
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
+
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                DirectionsJSONParser parser = new DirectionsJSONParser();
+
+                routes = parser.parse(jObject);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+
+            progressDialog.dismiss();
+            Log.d("result", result.toString());
+            ArrayList points = null;
+            PolylineOptions lineOptions = null;
+
+            for (int i = 0; i < result.size(); i++) {
+                points = new ArrayList();
+                lineOptions = new PolylineOptions();
+
+                List<HashMap<String, String>> path = result.get(i);
+
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
+
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
+
+                    points.add(position);
+                }
+
+                lineOptions.addAll(points);
+                lineOptions.width(12);
+                lineOptions.color(Color.RED);
+                lineOptions.geodesic(true);
+
+            }
+
+// Drawing polyline in the Google Map for the i-th route
+            mGoogleMap.addPolyline(lineOptions);
+        }
+    }
+
 */
 
-
-
-
-
- /*   *//**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     *//*
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }*/
-
+}
