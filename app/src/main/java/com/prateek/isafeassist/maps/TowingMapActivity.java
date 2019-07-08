@@ -23,9 +23,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -63,7 +65,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -90,6 +94,8 @@ public class TowingMapActivity extends FragmentActivity implements
     static double lati, longi;
     ProgressDialog progressDialog;
     FirebaseAuth auth;
+
+    Geocoder geocoder1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -347,7 +353,6 @@ public class TowingMapActivity extends FragmentActivity implements
                     Log.i("nuh", "uh");
                 }
 
-
             }
         });
 
@@ -424,6 +429,7 @@ public class TowingMapActivity extends FragmentActivity implements
             return addresses;
         }
 
+        List<Address> addre;
 
         @Override
         protected void onPostExecute(List<Address> addresses) {
@@ -438,14 +444,14 @@ public class TowingMapActivity extends FragmentActivity implements
             // Adding Markers on Google Map for each matching address
             for (int i = 0; i < addresses.size(); i++) {
 
-                Address address = (Address) addresses.get(i);
+                Address address1 = (Address) addresses.get(i);
 
                 // Creating an instance of GeoPoint, to display in Google Map
-                latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                latLng = new LatLng(address1.getLatitude(), address1.getLongitude());
 
                 String addressText = String.format("%s, %s",
-                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                        address.getCountryName());
+                        address1.getMaxAddressLineIndex() > 0 ? address1.getAddressLine(0) : "",
+                        address1.getCountryName());
 
                 markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
@@ -453,10 +459,11 @@ public class TowingMapActivity extends FragmentActivity implements
                 markerOptions.title(etstart.getText().toString());
 
                 System.out.println("distance " + CalculationByDistance(lati, longi, latLng.latitude, latLng.longitude));
+                geocoder1 = new Geocoder(TowingMapActivity.this, Locale.getDefault());
 
                 final double distance = CalculationByDistance(lati, longi, latLng.latitude, latLng.longitude);
                 if (distance > 25000) {
-                    Toast.makeText(TowingMapActivity.this, "Towing is Not Possible", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TowingMapActivity.this, "Distance Limit Exceed! " + distance / 1000 + " Towing Not Possible", Toast.LENGTH_SHORT).show();
                 } else {
                     new AlertDialog.Builder(TowingMapActivity.this)
                             .setTitle("Route Verification")
@@ -467,7 +474,7 @@ public class TowingMapActivity extends FragmentActivity implements
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Continue with delete operation
-                                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                    Intent intent = new Intent(Intent.ACTION_VIEW,
                                             Uri.parse("http://maps.google.com/maps?saddr=" + lati + "," + longi + "&daddr=" + latLng.latitude +
                                                     "," + latLng.longitude));
                                     startActivity(intent);
@@ -501,11 +508,61 @@ public class TowingMapActivity extends FragmentActivity implements
 
                                         }
                                     });
-                                    ProgressDialog dialog1 = new ProgressDialog(TowingMapActivity.this);
+                                    final ProgressDialog dialog1 = new ProgressDialog(TowingMapActivity.this);
                                     dialog1.setMessage("Checking for Availability of Drivers..");
                                     dialog1.setCancelable(false);
                                     dialog1.show();
                                     drawRoute(latLng, new LatLng(lati, longi), distance);
+
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                                    reference.child("Towing Requests").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+
+                                                String dname = ds.child("drivername").getValue(String.class);
+                                                String dcontact = ds.child("driverphone").getValue(String.class);
+                                                String dlat = ds.child("driverlat").getValue(String.class);
+                                                String dlong = ds.child("driverlong").getValue(String.class);
+                                                String ulat = ds.child("startlat").getValue(String.class);
+                                                String ulong = ds.child("startlong").getValue(String.class);
+                                                //List<Address> addresses = null;
+
+                                                System.out.println(dname + " " + dcontact + " " + ulat + " " + ulong);
+                                                if (dname != null) {
+                                                    try {
+                                                        addre = geocoder1.getFromLocation(Double.parseDouble(ulat), Double.parseDouble(ulong), 1);
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    String add = addre.get(0).getAddressLine(0);
+                                                    final TextView uname, phone, ulocation;
+                                                    final Button accept, decline;
+                                                    final AlertDialog dialogBuilder = new AlertDialog.Builder(TowingMapActivity.this).create();
+                                                    LayoutInflater inflater = getLayoutInflater();
+                                                    final View dialogView = inflater.inflate(R.layout.customdialog, null);
+                                                    dialogBuilder.setCancelable(true);
+                                                    uname = dialogView.findViewById(R.id.dname);
+                                                    phone = dialogView.findViewById(R.id.dphone);
+                                                    ulocation = dialogView.findViewById(R.id.dloc);
+                                                    uname.setText(dname);
+                                                    phone.setText(dcontact);
+                                                    ulocation.setText(add);
+                                                    dialogBuilder.setView(dialogView);
+                                                    dialogBuilder.show();
+
+                                                    dialog1.dismiss();
+                                                }
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
 
                                 }
                             })
@@ -583,15 +640,19 @@ public class TowingMapActivity extends FragmentActivity implements
 
     private void drawRoute(final LatLng latLng, final LatLng latLng1, final double distance) {
 
-        DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("User").child(auth.getCurrentUser().getUid());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("User").child(auth.getCurrentUser().getUid());
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                String uname= dataSnapshot.child("name").getValue(String.class);
-                String ucontact= dataSnapshot.child("contactNo").getValue(String.class);
+                String uname = dataSnapshot.child("name").getValue(String.class);
+                String ucontact = dataSnapshot.child("contactNo").getValue(String.class);
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Towing Requests").child(auth.getCurrentUser().getUid());
+                String currentDateTimeString = DateFormat.getDateTimeInstance()
+                        .format(new Date());
+                System.out.println(currentDateTimeString);
+
                 towingloc locationService = new towingloc();
                 locationService.setStartlat(String.valueOf(latLng1.latitude));
                 locationService.setStartlong(String.valueOf(latLng1.longitude));
@@ -601,6 +662,7 @@ public class TowingMapActivity extends FragmentActivity implements
                 locationService.setRequesting("1");
                 locationService.setUname(uname);
                 locationService.setUcontact(ucontact);
+                locationService.setTime(currentDateTimeString);
                 databaseReference.setValue(locationService);
 
 
@@ -616,175 +678,5 @@ public class TowingMapActivity extends FragmentActivity implements
 
 
     }
-
-/*
-
-    private void drawPolylines(LatLng latLng, LatLng lng) {
-        progressDialog = new ProgressDialog(TowingMapActivity.this);
-        progressDialog.setMessage("Please Wait, Polyline between two locations is building.");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-        */
-/*//*
-/ Checks, whether start and end locations are captured
-        // Getting URL to the Google Directions API
-        String url = getDirectionsUrl(lng, latLng);
-        Log.d("url", url + "");
-
-        DownloadTask downloadTask = new DownloadTask();
-        // Start downloading json data from Google Directions API
-        downloadTask.execute(url);*//*
-
-    }
-
-    private String getDirectionsUrl(LatLng origin, LatLng dest) {
-
-        // Origin of route
-        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
-
-        // Destination of route
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-
-        // Sensor enabled
-        String sensor = "sensor=false";
-        String mode = "mode=driving";
-        // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor + "&" + mode;
-
-        // Output format
-        String output = "json";
-
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-
-
-        return url;
-    }
-
-    */
-/**
- * A method to download json data from url
- *//*
-
-    private String downloadUrl(String strUrl) throws IOException {
-        String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(strUrl);
-
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            urlConnection.connect();
-
-            iStream = urlConnection.getInputStream();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
-            StringBuffer sb = new StringBuffer();
-
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-            data = sb.toString();
-
-            br.close();
-            Log.d("data", data);
-
-        } catch (Exception e) {
-            Log.d("Exception", e.toString());
-        } finally {
-            iStream.close();
-            urlConnection.disconnect();
-        }
-        return data;
-    }
-
-    private class DownloadTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... url) {
-
-            String data = "";
-
-            try {
-                data = downloadUrl(url[0]);
-            } catch (Exception e) {
-                Log.d("Background Task", e.toString());
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            ParserTask parserTask = new ParserTask();
-
-
-            parserTask.execute(result);
-
-        }
-    }
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
-
-        // Parsing the data in non-ui thread
-        @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
-
-            JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
-
-            try {
-                jObject = new JSONObject(jsonData[0]);
-                DirectionsJSONParser parser = new DirectionsJSONParser();
-
-                routes = parser.parse(jObject);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return routes;
-        }
-
-        @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-
-            progressDialog.dismiss();
-            Log.d("result", result.toString());
-            ArrayList points = null;
-            PolylineOptions lineOptions = null;
-
-            for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList();
-                lineOptions = new PolylineOptions();
-
-                List<HashMap<String, String>> path = result.get(i);
-
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
-                }
-
-                lineOptions.addAll(points);
-                lineOptions.width(12);
-                lineOptions.color(Color.RED);
-                lineOptions.geodesic(true);
-
-            }
-
-// Drawing polyline in the Google Map for the i-th route
-            mGoogleMap.addPolyline(lineOptions);
-        }
-    }
-
-*/
 
 }

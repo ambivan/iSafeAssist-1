@@ -7,9 +7,12 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +46,7 @@ public class TransactionActivity extends AppCompatActivity {
 
     TextView transid, memid, packname, vehname;
     Button button;
-     String name;
+    String name;
     String contact;
     String address;
     String vehiclemake;
@@ -66,11 +69,18 @@ public class TransactionActivity extends AppCompatActivity {
         vehname = findViewById(R.id.vehname);
         button = findViewById(R.id.receipt_btn);
         auth = FirebaseAuth.getInstance();
+        Window window = TransactionActivity.this.getWindow();
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(TransactionActivity.this, R.color.mystatus));
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(auth.getCurrentUser().getUid());
         Bundle bundle = getIntent().getExtras();
         String tid = bundle.getString("Transactionid");
         String cat = bundle.getString("Cat");
-        String vehicle= bundle.getString("vehicle");
+        String vehicle = bundle.getString("vehicle");
         if (cat.equals("1")) {
             packname.setText("Car Membership");
             memid.setText(PaymentActivity.memno);
@@ -111,14 +121,13 @@ public class TransactionActivity extends AppCompatActivity {
     }
 
 
-
     private void savepdf() {
 
         final Document document = new Document();
         final String filename = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(System.currentTimeMillis());
         final String filepath = Environment.getExternalStorageDirectory() + "/" + filename + ".pdf";
 
-        if(DefaultFragment.var==0) {
+        if (DefaultFragment.var == 0) {
 
 
             databaseReference.child("Bike Package").child(BikesFragment.key).addValueEventListener(new ValueEventListener() {
@@ -135,8 +144,8 @@ public class TransactionActivity extends AppCompatActivity {
                     vehiclemake = dataSnapshot.child("bikemake").getValue(String.class);
                     model = dataSnapshot.child("bikemodel").getValue(String.class);
                     year = dataSnapshot.child("year").getValue(String.class);
-                    startdate= dataSnapshot.child("Payments").child("purchasedate").getValue(String.class);
-                    enddate= dataSnapshot.child("Payments").child("expirydate").getValue(String.class);
+                    startdate = dataSnapshot.child("Payments").child("purchasedate").getValue(String.class);
+                    enddate = dataSnapshot.child("Payments").child("expirydate").getValue(String.class);
                     regno = dataSnapshot.child("regno").getValue(String.class);
                     vehname.setText(vehiclemake);
                     cat = "Bike";
@@ -263,20 +272,20 @@ public class TransactionActivity extends AppCompatActivity {
 
                 }
             });
-        }else{
+        } else {
             databaseReference.child("Car Package").child(CarFragment.carkey).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    name=dataSnapshot.child("firstname").getValue(String.class);
-                    contact= dataSnapshot.child("mobno").getValue(String.class);
+                    name = dataSnapshot.child("firstname").getValue(String.class);
+                    contact = dataSnapshot.child("mobno").getValue(String.class);
                     address = dataSnapshot.child("address").getValue(String.class);
                     year = dataSnapshot.child("year").getValue(String.class);
                     vehiclemake = dataSnapshot.child("carmake").getValue(String.class);
                     model = dataSnapshot.child("carmodel").getValue(String.class);
                     regno = dataSnapshot.child("regno").getValue(String.class);
-                    startdate= dataSnapshot.child("Payments").child("purchasedate").getValue(String.class);
-                    enddate= dataSnapshot.child("Payments").child("expirydate").getValue(String.class);
+                    startdate = dataSnapshot.child("Payments").child("purchasedate").getValue(String.class);
+                    enddate = dataSnapshot.child("Payments").child("expirydate").getValue(String.class);
                     vehname.setText(vehiclemake);
 
                     cat = "Car";

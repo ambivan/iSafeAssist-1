@@ -63,6 +63,10 @@ import com.prateek.isafeassist.model.UserDetails;
 import com.prateek.isafeassist.model.UserLocationService;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -448,11 +452,19 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                             String name = dataSnapshot.child("name").getValue(String.class);
                             String contact = dataSnapshot.child("contactNo").getValue(String.class);
                             UserDetails details = new UserDetails();
+                            /*Calendar calendar = Calendar.getInstance();
+                            SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
+                            String strDate =  mdformat.format(calendar.getTime());*/
+                            String currentDateTimeString = DateFormat.getDateTimeInstance()
+                                    .format(new Date());
+                            System.out.println(currentDateTimeString);
+
                             details.setName(name);
                             details.setContactNo(contact);
                             details.setLat(l1.toString());
                             details.setLongi(l2.toString());
                             details.setRequesting("1");
+                            details.setTime(currentDateTimeString);
                             reference.child("Requests").child(auth.getCurrentUser().getUid()).setValue(details);
                         }
 
@@ -520,6 +532,8 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
 
                         }
                     });
+
+
                     reference.child("UserRequest").child(auth.getCurrentUser().getUid()).setValue(locationService);
                     //startActivity(new Intent(ServiceMapActivity.this, SearchDriversActivity.class));
 

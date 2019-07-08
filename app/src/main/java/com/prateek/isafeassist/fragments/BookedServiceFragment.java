@@ -70,6 +70,7 @@ public class BookedServiceFragment extends android.app.Fragment {
     }
 
     private void loadServicelist(final RecyclerView recyclerView) {
+        //recyclerView.removeAllViewsInLayout();
 
         databaseReference.child("Requests").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,17 +78,76 @@ public class BookedServiceFragment extends android.app.Fragment {
 
                 //System.out.println(dataSnapshot.getKey());
 
-                list.clear();
+                String dname= dataSnapshot.child("drivername").getValue(String.class);
+                String dcontact= dataSnapshot.child("driverphone").getValue(String.class);
+                String dotp= dataSnapshot.child("OTP").getValue(String.class);
+
+                String price="₹ 500/-";
+                servicemodel model= new servicemodel();
+
+                if(dname!= null && dcontact !=null && dname.length()>0 && dcontact.length()>0 ){
+                    model.setDname(dname);
+                    model.setDcontact(dcontact);
+                    model.setDotp(dotp);
+                    model.setPrice(price);
+                    list.add(model);
+
+                }
+
+                if(list==null){
+
+                    layout.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.VISIBLE);
+                    dialog.dismiss();
+
+                }else{
+                    imageView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                    System.out.println(dname+ dcontact);
+                    System.out.println(list);
+
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    adapter= new CallServiceAdapter(getActivity(), list);
+                    recyclerView.setAdapter(adapter);
+                    dialog.dismiss();
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        databaseReference.child("Towing Requests").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                //System.out.println(dataSnapshot.getKey());
+
                 String dname= dataSnapshot.child("drivername").getValue(String.class);
                 String dcontact= dataSnapshot.child("driverphone").getValue(String.class);
                 String dotp= dataSnapshot.child("OTP").getValue(String.class);
 
                 servicemodel model= new servicemodel();
-                model.setDname(dname);
-                model.setDcontact(dcontact);
-                model.setDotp(dotp);
-                list.add(model);
+                if(dname!= null && dcontact !=null && dname.length()>0 && dcontact.length()>0 ){
+                    model.setDname(dname);
+                    model.setDcontact(dcontact);
+                    model.setDotp(dotp);
+                    model.setPrice("₹ 1200/-");
+                    list.add(model);
 
+                }
                 if(list==null){
 
                     layout.setVisibility(View.VISIBLE);

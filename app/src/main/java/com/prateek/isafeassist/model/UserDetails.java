@@ -9,6 +9,7 @@ public class UserDetails {
     String lat;
     String longi;
     String requesting;
+    String time;
 
 
     public String getSignupid() {
@@ -29,6 +30,14 @@ public class UserDetails {
 
     public UserDetails() {
 
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public UserDetails(String name, String email, String password, String contactNo, String signupid) {
