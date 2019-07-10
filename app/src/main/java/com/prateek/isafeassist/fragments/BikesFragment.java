@@ -1,6 +1,7 @@
 package com.prateek.isafeassist.fragments;
 
 
+import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
@@ -37,6 +39,10 @@ import com.prateek.isafeassist.model.Bike;
 import com.prateek.isafeassist.model.User;
 import com.prateek.isafeassist.payments.PaymentActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -45,14 +51,15 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
     TextView text1, text2, termsbike;
     Button button;
     Spinner s1, s2, s3, s4;
-    EditText fname, lname, email, mobnumber, add, land, zip, city, state;
+    EditText fname, lname, email, mobnumber, add, land, zip, city;
     public static String key;
     boolean status;
     CheckBox checkBox;
     EditText bike, bikemake, bikemodel, bikeregno, bikeinsurance, bikeexpiry, bikeyear;
-
+    View view;
     String firstname, lastname, emailid, mobile, address, landmark, usercity, userstate, postal;
     String bikebike, bikebikemake, bikebikemodel, bikebikeregno, bikebikeinsurance, bikebikeexpiry, bikebikeyear;
+    Calendar myCalendar = Calendar.getInstance();
 
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
@@ -62,7 +69,11 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
 
     Toolbar toolbar;
     final String str1[] = {"City*"};
-    final String str2[] = {"State/Province/Region*"};
+    final String str2[] = {"State*", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "" +
+            "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
+            "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan",
+            "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar",
+            "Chandigarh", "Dadar and Nagar", "Daman and Diu", "Delhi", "Lakshadweep", "Puducherry"};
     final String str3[] = {"India*"};
     final String str4[] = {"Bike"};
 
@@ -75,15 +86,16 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_bikes, container, false);
+        view = inflater.inflate(R.layout.fragment_bikes, container, false);
 
         text1 = container.findViewById(R.id.text1);
         text2 = container.findViewById(R.id.text2);
         button = view.findViewById(R.id.bikes_buynow_btn);
-        termsbike= view.findViewById(R.id.termsbike);
+        termsbike = view.findViewById(R.id.termsbike);
         /*s1 = view.findViewById(R.id.bike_city_spinner);
-        s2 = view.findViewById(R.id.bike_state_spinner);
         */
+        s2 = view.findViewById(R.id.bike_state_spinner);
+
         s3 = view.findViewById(R.id.bike_india_spinner);
         //s4 = view.findViewById(R.id.bike_bike_spinner);
         auth = FirebaseAuth.getInstance();
@@ -96,7 +108,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         land = view.findViewById(R.id.bike_user_landmark);
         zip = view.findViewById(R.id.bike_user_postal);
         city = view.findViewById(R.id.bike_user_city);
-        state = view.findViewById(R.id.bike_user_state);
+        //state = view.findViewById(R.id.bike_user_state);
         bike = view.findViewById(R.id.bike_bike_bike);
         bikemake = view.findViewById(R.id.bike_bike_make);
         bikemodel = view.findViewById(R.id.bike_bike_model);
@@ -109,26 +121,59 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str3);
         adapter3.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s3.setAdapter(adapter3);
-        dialog= new ProgressDialog(getActivity());
+        dialog = new ProgressDialog(getActivity());
         termsbike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getActivity(), TermsConditionsActivity.class);
+                Intent intent = new Intent(getActivity(), TermsConditionsActivity.class);
                 startActivity(intent);
             }
         });
+
+        final DatePickerDialog.OnDateSetListener datee = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+        bikeexpiry.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), datee, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
 
 
 /*        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str1);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s1.setAdapter(adapter);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str2);
-        adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        s2.setAdapter(adapter2);
         ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str4);
         adapter4.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s4.setAdapter(adapter4);*/
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str2);
+        adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        s2.setAdapter(adapter2);
+
         return view;
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        bikeexpiry = view.findViewById(R.id.bike_bike_expiry);
+
+        bikeexpiry.setText(sdf.format(myCalendar.getTime()));
     }
 
 
@@ -148,8 +193,8 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         allotfields();
         if (TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(emailid) || TextUtils.isEmpty(mobile) ||
                 TextUtils.isEmpty(address) || TextUtils.isEmpty(landmark) || TextUtils.isEmpty(usercity) ||
-                TextUtils.isEmpty(userstate) || TextUtils.isEmpty(postal) || TextUtils.isEmpty(bikebikeyear)) {
-            Toast.makeText(getActivity(), "Enter All Required fields", Toast.LENGTH_SHORT).show();
+                /*TextUtils.isEmpty(userstate)*/userstate.equals("State*") || TextUtils.isEmpty(postal) || TextUtils.isEmpty(bikebikeyear) || TextUtils.isEmpty(bikebikeregno)) {
+            Toast.makeText(getActivity(), "Enter All Required fields Correctly", Toast.LENGTH_SHORT).show();
 
         } else {
             dialog.setMessage("Loading..");
@@ -200,8 +245,8 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
                                 intent.putExtra("lname", lastname);
                                 intent.putExtra("regno", bikebikeregno);
                                 intent.putExtra("amt", "283.20/-");
-                                intent.putExtra("key",key);
-                                intent.putExtra("state",userstate);
+                                intent.putExtra("key", key);
+                                intent.putExtra("state", userstate);
 
                                 intent.putExtra("vehname", bikebike);
                                 dialog.dismiss();
@@ -220,13 +265,12 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
             }
         }
 
-
     }
 
     public void checkfields() {
         if (TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(emailid) || TextUtils.isEmpty(mobile) ||
                 TextUtils.isEmpty(address) || TextUtils.isEmpty(landmark) || TextUtils.isEmpty(usercity) ||
-                TextUtils.isEmpty(userstate) || TextUtils.isEmpty(postal)) {
+                TextUtils.isEmpty(userstate) || TextUtils.isEmpty(postal) || TextUtils.isEmpty(bikebikeregno)) {
 
             status = false;
         } else {
@@ -243,7 +287,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
         address = add.getText().toString();
         landmark = land.getText().toString();
         usercity = city.getText().toString();
-        userstate = state.getText().toString();
+        userstate = s2.getSelectedItem().toString();
         postal = zip.getText().toString();
         bikebike = bike.getText().toString();
         bikebikemake = bikemake.getText().toString();
@@ -270,7 +314,7 @@ public class BikesFragment extends android.app.Fragment implements View.OnClickL
                 add.setText(user.getAddress());
                 land.setText(user.getLandmark());
                 city.setText(user.getCity());
-                state.setText(user.getState());
+                //state.setText(user.getState());
                 zip.setText(user.getZip());
             }
 

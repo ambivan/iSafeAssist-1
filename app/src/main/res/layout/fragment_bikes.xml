@@ -138,14 +138,10 @@
                             android:layout_margin="10dp"
                             android:textAlignment="textStart" />
 
-                        <Spinner
-                            android:id="@+id/bike_state_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_margin="10dp"
 
-                            android:textAlignment="textStart" />
             -->
+
+
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -161,8 +157,14 @@
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/bike_state_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:textAlignment="textStart" />
 
-            <android.support.design.widget.TextInputLayout
+            <!--<android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -175,7 +177,7 @@
                     android:imeOptions="actionNext"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
-
+-->
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -186,7 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="Zip/Postal Code*"
+                    android:hint="Pin Code*"
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:singleLine="true" />
@@ -290,7 +292,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
-                    android:hint="Registration Number"
+                    android:hint="Registration Number*"
                     android:imeOptions="actionNext"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
@@ -306,7 +308,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:hint="Insurance Company"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
@@ -321,6 +323,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
+                    android:focusable="false"
                     android:hint="Insurance Expiry Date"
                     android:imeOptions="actionDone"
                     android:singleLine="true" />
@@ -355,16 +358,7 @@
                     android:layout_marginTop="23dp"
                     android:layout_height="wrap_content"
                     android:text="Terms and Conditions*" />
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="I Accept the " />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#2196F3"
-                    android:text="Terms and Condition* " />-->
             </LinearLayout>
 
 

@@ -1,6 +1,7 @@
 package com.prateek.isafeassist.fragments;
 
 
+import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,6 +37,12 @@ import com.prateek.isafeassist.model.User;
 import com.prateek.isafeassist.model.UserDetails;
 import com.prateek.isafeassist.payments.PaymentActivity;
 
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -43,7 +51,11 @@ public class CarFragment extends android.app.Fragment {
     Button carbtn;
     Spinner s1, s2, s3, s4;
     final String str1[] = {"City*"};
-    final String str2[] = {"State/Province/Region*"};
+    final String str2[] = {"State*", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "" +
+            "Haryana", "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
+            "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan",
+            "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal", "Andaman and Nicobar",
+            "Chandigarh", "Dadar and Nagar", "Daman and Diu", "Delhi", "Lakshadweep", "Puducherry"};
     final String str3[] = {"India*"};
     final String str4[] = {"Bike"};
     boolean status;
@@ -51,7 +63,7 @@ public class CarFragment extends android.app.Fragment {
     TextView termscar;
     public static String carkey;
 
-    EditText fname, lname, email, mobnumber, add, land, zip, city, state;
+    EditText fname, lname, email, mobnumber, add, land, zip, city;
 
     CheckBox checkBox;
     EditText car, carmake, carmodel, carregno, carinsurance, carexpiry, caryear;
@@ -63,7 +75,9 @@ public class CarFragment extends android.app.Fragment {
     private FirebaseDatabase mFirebaseInstance;
     private FirebaseAuth auth;
     ProgressDialog dialog;
+    Calendar myCalendar = Calendar.getInstance();
 
+    View view;
 
     public CarFragment() {
         // Required empty public constructor
@@ -74,7 +88,7 @@ public class CarFragment extends android.app.Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_car, container, false);
+         view = inflater.inflate(R.layout.fragment_car, container, false);
 
         fname = view.findViewById(R.id.fname);
         lname = view.findViewById(R.id.lname);
@@ -87,7 +101,7 @@ public class CarFragment extends android.app.Fragment {
         zip = view.findViewById(R.id.zip);
         checkBox = view.findViewById(R.id.termscheckforcar);
         city = view.findViewById(R.id.car_city);
-        state = view.findViewById(R.id.car_state);
+        //state = view.findViewById(R.id.car_state);
         car = view.findViewById(R.id.car_car);
         carmake = view.findViewById(R.id.car_carmake);
         carmodel = view.findViewById(R.id.car_carmodel);
@@ -96,13 +110,37 @@ public class CarFragment extends android.app.Fragment {
         carinsurance = view.findViewById(R.id.car_insurance);
         carexpiry = view.findViewById(R.id.car_expiry);
         carbtn = view.findViewById(R.id.car_buynow_btn);
+        s2= view.findViewById(R.id.car_state_spinner);
         s3 = view.findViewById(R.id.car_india_spinner);
         dialog= new ProgressDialog(getActivity());
+
+
 
         auth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
 
-        getallData();
+        final DatePickerDialog.OnDateSetListener datee = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+        carexpiry.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), datee, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        //getallData();
         termscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,9 +157,9 @@ public class CarFragment extends android.app.Fragment {
 
                 if (TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(emailid) || TextUtils.isEmpty(mobile) ||
                         TextUtils.isEmpty(address) || TextUtils.isEmpty(landmark) || TextUtils.isEmpty(usercity) ||
-                        TextUtils.isEmpty(userstate) || TextUtils.isEmpty(postal) || TextUtils.isEmpty(carcaryear)) {
+                        /*TextUtils.isEmpty(userstate)*/userstate.equals("State*") || TextUtils.isEmpty(postal) || TextUtils.isEmpty(carcaryear)|| TextUtils.isEmpty(carcarregno)) {
 
-                    Toast.makeText(getActivity(), "Enter All fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Enter All fields correctly", Toast.LENGTH_SHORT).show();
                 } else {
                     dialog.setMessage("Loading..");
                     dialog.setCancelable(false);
@@ -195,7 +233,20 @@ public class CarFragment extends android.app.Fragment {
         adapter4.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         s3.setAdapter(adapter4);
 
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, str2);
+        adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        s2.setAdapter(adapter2);
+
         return view;
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        carexpiry = view.findViewById(R.id.car_expiry);
+
+        carexpiry.setText(sdf.format(myCalendar.getTime()));
     }
 
     private void loadFragment(android.app.Fragment fragment) {
@@ -212,7 +263,7 @@ public class CarFragment extends android.app.Fragment {
     public void checkfields() {
         if (TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(emailid) || TextUtils.isEmpty(mobile) ||
                 TextUtils.isEmpty(address) || TextUtils.isEmpty(landmark) || TextUtils.isEmpty(usercity) ||
-                TextUtils.isEmpty(userstate) || TextUtils.isEmpty(postal)) {
+                /*TextUtils.isEmpty(userstate)*/userstate.equals("State*") || TextUtils.isEmpty(postal)) {
 
             status = false;
         } else {
@@ -229,7 +280,7 @@ public class CarFragment extends android.app.Fragment {
         address = add.getText().toString();
         landmark = land.getText().toString();
         usercity = city.getText().toString();
-        userstate = state.getText().toString();
+        userstate = s2.getSelectedItem().toString();
         postal = zip.getText().toString();
         carcar = car.getText().toString();
         carcarmodel = carmodel.getText().toString();
@@ -241,7 +292,7 @@ public class CarFragment extends android.app.Fragment {
 
     }
 
-    public void getallData() {
+    /*public void getallData() {
         final User user = new User();
         DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -266,5 +317,5 @@ public class CarFragment extends android.app.Fragment {
             }
         });
 
-    }
+    }*/
 }

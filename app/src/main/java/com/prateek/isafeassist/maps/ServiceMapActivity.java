@@ -465,6 +465,7 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                             details.setLongi(l2.toString());
                             details.setRequesting("1");
                             details.setTime(currentDateTimeString);
+                            details.setEndrequest("0");
                             reference.child("Requests").child(auth.getCurrentUser().getUid()).setValue(details);
                         }
 

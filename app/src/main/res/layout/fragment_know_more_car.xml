@@ -37,6 +37,8 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:padding="10dp"
+                    android:lineSpacingExtra="7dp"
+
                     android:textAlignment="textStart"
                     android:text="@string/aboutcars"
                     android:textSize="18dp" />
@@ -56,6 +58,7 @@
                     android:padding="10dp"
                     android:textAlignment="textStart"
                     android:layout_margin="10dp"
+                    android:lineSpacingExtra="7dp"
                     android:text="@string/featurecar"
                     android:textSize="18dp" />
 

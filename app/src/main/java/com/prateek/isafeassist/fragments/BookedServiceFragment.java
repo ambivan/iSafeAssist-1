@@ -85,6 +85,8 @@ public class BookedServiceFragment extends android.app.Fragment {
                 String price="₹ 500/-";
                 servicemodel model= new servicemodel();
 
+                System.out.println("adjkankjandcsMCKjnsDAKJNvsa"+dname+ dcontact);
+
                 if(dname!= null && dcontact !=null && dname.length()>0 && dcontact.length()>0 ){
                     model.setDname(dname);
                     model.setDcontact(dcontact);
@@ -94,7 +96,9 @@ public class BookedServiceFragment extends android.app.Fragment {
 
                 }
 
-                if(list==null){
+                System.out.println(list.size());
+                System.out.println(list);
+                if(list==null || list.size()==0){
 
                     layout.setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.VISIBLE);
@@ -104,8 +108,10 @@ public class BookedServiceFragment extends android.app.Fragment {
                 }else{
                     imageView.setVisibility(View.GONE);
                     textView.setVisibility(View.GONE);
+                    layout.setVisibility(View.GONE);
                     System.out.println(dname+ dcontact);
                     System.out.println(list);
+                    System.out.println("eklse");
 
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -139,27 +145,33 @@ public class BookedServiceFragment extends android.app.Fragment {
                 String dcontact= dataSnapshot.child("driverphone").getValue(String.class);
                 String dotp= dataSnapshot.child("OTP").getValue(String.class);
 
+                String price="₹ 1200/-";
                 servicemodel model= new servicemodel();
                 if(dname!= null && dcontact !=null && dname.length()>0 && dcontact.length()>0 ){
                     model.setDname(dname);
                     model.setDcontact(dcontact);
                     model.setDotp(dotp);
-                    model.setPrice("₹ 1200/-");
+                    model.setPrice(price);
                     list.add(model);
 
                 }
-                if(list==null){
+                System.out.println(list.size());
+                System.out.println(list);
+                if(list==null || list.size()==0){
 
                     layout.setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.VISIBLE);
                     textView.setVisibility(View.VISIBLE);
+                    System.out.println("iffff");
                     dialog.dismiss();
 
                 }else{
                     imageView.setVisibility(View.GONE);
                     textView.setVisibility(View.GONE);
+                    layout.setVisibility(View.GONE);
                     System.out.println(dname+ dcontact);
                     System.out.println(list);
+                    System.out.println("eklse");
 
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));

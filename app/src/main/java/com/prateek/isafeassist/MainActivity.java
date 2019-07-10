@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,6 +43,8 @@ import com.prateek.isafeassist.fragments.UserMembershipFragment;
 import com.prateek.isafeassist.fragments.UserProfileFragment;
 import com.prateek.isafeassist.welcome.SplashActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     DatabaseReference databaseReference;
     TextView textView;
     View header;
+    CircleImageView circleImageView;
     NavigationView navigationView;
 
     @Override
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(firebaseAuth.getCurrentUser().getUid());
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        navigationView= findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -80,9 +84,27 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String name = dataSnapshot.child("name").getValue(String.class);
+                String url = dataSnapshot.child("imageurl").getValue(String.class);
                 //textView.setText(name);
-                header= navigationView.getHeaderView(0);
+                header = navigationView.getHeaderView(0);
                 textView = header.findViewById(R.id.header_name);
+                circleImageView = header.findViewById(R.id.header_profileimg);
+
+                circleImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadFragment(new UserProfileFragment());
+
+                    }
+                });
+
+                if (url != null) {
+                    Glide.with(MainActivity.this).load(url).into(circleImageView);
+
+                } else {
+                    Glide.with(MainActivity.this).load(R.drawable.userprof).into(circleImageView);
+                    //loadFragment(new UserProfileFragment());
+                }
                 textView.setText(name);
                 System.out.println(name);
             }
@@ -92,6 +114,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
     }
 

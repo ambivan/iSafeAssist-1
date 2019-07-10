@@ -190,9 +190,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
            memc.setCount(String.valueOf(cc));
            reff.child("member").setValue(memc);
            PayDao payDao = new PayDao();
-           String date = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault()).format(new Date());
+           String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
-           SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
            Calendar c = Calendar.getInstance();
            try {
                c.setTime(sdf.parse(date));
@@ -200,7 +200,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
                e.printStackTrace();
            }
            c.add(Calendar.DATE, 367);
-           sdf = new SimpleDateFormat("MM/dd/yyyy");
+           sdf = new SimpleDateFormat("dd/MM/yyyy");
            Date resultdate = new Date(c.getTimeInMillis());
            expdate = sdf.format(resultdate);
            payDao.setTransactid(razorpayPaymentID);

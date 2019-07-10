@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
     tools:context=".maps.TowingMapActivity">
 
 
-    <Button
+    <!--<Button
         android:id="@+id/calltowingbtn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
@@ -20,68 +23,7 @@
         android:padding="5dp"
         android:text="Book Now"
         android:textColor="#000" />
-
-    <LinearLayout
-        android:id="@+id/mmm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/towingstart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="5"
-            android:drawableRight="@drawable/ic_place_green_24dp"
-            android:hint="Pick up Location"
-            android:imeOptions="actionNext"
-            android:singleLine="true" />
-
-
-        <Button
-            android:id="@+id/btnsearchtowing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/llllll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mmm"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/towingend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="5"
-            android:drawableRight="@drawable/ic_place_red_24dp"
-            android:hint="Drop Location"
-            android:imeOptions="actionNext"
-            android:singleLine="true" />
-
-
-        <Button
-            android:id="@+id/gotowing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:text="Go" />
-
-
-    </LinearLayout>
-
+-->
 
     <fragment
         android:id="@+id/map"
@@ -92,5 +34,122 @@
 
     </fragment>
 
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/bottom_sheet2"
+        android:layout_width="match_parent"
+        android:layout_height="725dp"
+        android:background="@drawable/layout_swipe"
+        android:elevation="16dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="160dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
-</RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="220dp">
+
+            <TextView
+                android:id="@+id/atatatatat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Let us Know your Start and End Point"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:id="@+id/tititititi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/atatatatat"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/mmm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/towingstart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="5"
+                        android:drawableRight="@drawable/ic_place_green_24dp"
+                        android:hint="Pick up Location"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+
+
+                    <Button
+                        android:id="@+id/btnsearchtowing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/llllll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mmm"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/towingend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="5"
+                        android:drawableRight="@drawable/ic_place_red_24dp"
+                        android:hint="Drop Location"
+                        android:imeOptions="actionDone"
+                        android:singleLine="true" />
+
+
+                    <Button
+                        android:id="@+id/gotowing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/calltowingbtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tititititi"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/round_btn_yellow"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Book Now"
+                android:textColor="#000" />
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

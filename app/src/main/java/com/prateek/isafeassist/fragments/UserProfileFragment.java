@@ -118,9 +118,12 @@ public class UserProfileFragment extends android.app.Fragment {
                     if (TextUtils.isEmpty(email.getText().toString()) || TextUtils.isEmpty(mobilenumber.getText().toString())) {
                         Toast.makeText(getActivity(), "Fields cannot be Empty", Toast.LENGTH_SHORT).show();
 
-                    } else if(mobilenumber.length()<10 || mobilenumber.length()>10){
+                    } else if(mobilenumber.length()!=10){
                         mobilenumber.setError("Invalid Number");
                         mobilenumber.requestFocus();
+
+                    } else if(!isEmailValid(email.getText().toString())){
+                        Toast.makeText(getActivity(), "Invalid Email", Toast.LENGTH_SHORT).show();
 
                     } else
                         {
@@ -130,7 +133,7 @@ public class UserProfileFragment extends android.app.Fragment {
                         databaseref.child(firebaseAuth.getCurrentUser().getUid()).child("email").setValue(email.getText().toString());
                         databaseref.child(firebaseAuth.getCurrentUser().getUid()).child("contactNo").setValue(mobilenumber.getText().toString());
                         mobilenumber.setEnabled(false);
-                        // uploadPicture();
+                         uploadPicture();
                         email.setEnabled(false);
                         edit.setText("Edit");
                         Toast.makeText(getActivity(), "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
@@ -141,6 +144,9 @@ public class UserProfileFragment extends android.app.Fragment {
         return view;
     }
 
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
     private void uploadPicture() {
 
         if (filepath != null) {

@@ -10,6 +10,7 @@ public class UserDetails {
     String longi;
     String requesting;
     String time;
+    String endrequest;
 
 
     public String getSignupid() {
@@ -30,6 +31,14 @@ public class UserDetails {
 
     public UserDetails() {
 
+    }
+
+    public String getEndrequest() {
+        return endrequest;
+    }
+
+    public void setEndrequest(String endrequest) {
+        this.endrequest = endrequest;
     }
 
     public String getTime() {

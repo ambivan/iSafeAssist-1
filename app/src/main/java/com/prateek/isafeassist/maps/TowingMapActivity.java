@@ -3,6 +3,7 @@ package com.prateek.isafeassist.maps;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,8 +14,10 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -87,13 +90,14 @@ public class TowingMapActivity extends FragmentActivity implements
     Toolbar toolbar;
     EditText etstart, etend;
     static String loc;
-    Button btn_find, btn_book;
+    Button btn_find, btn_book, btn_checkroute;
     String addr = "";
     static int m = 0;
     public FusedLocationProviderClient client;
     static double lati, longi;
     ProgressDialog progressDialog;
     FirebaseAuth auth;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     Geocoder geocoder1;
 
@@ -106,16 +110,21 @@ public class TowingMapActivity extends FragmentActivity implements
         etstart = findViewById(R.id.towingstart);
         etend = findViewById(R.id.towingend);
         btn_find = findViewById(R.id.gotowing);
-
+       // btn_checkroute = findViewById(R.id.viewroutetowing);
         btn_book = findViewById(R.id.calltowingbtn);
+
+        final View bottom = findViewById(R.id.bottom_sheet2);
+
+//        HomePageActivity.frag = 3;
+        bottomSheetBehavior = BottomSheetBehavior.from(bottom);
 
         btn_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String add = etend.getText().toString();
-                if (add == null || add.length() < 0) {
-                    etend.setError("Enter Drop Location");
-                    etend.requestFocus();
+                if (TextUtils.isEmpty(add)) {
+                    Toast.makeText(TowingMapActivity.this, "Enter a Drop Location", Toast.LENGTH_SHORT).show();
+
                 } else {
 
                     new GeocoderTask().execute(add);
@@ -123,10 +132,23 @@ public class TowingMapActivity extends FragmentActivity implements
                 }
             }
         });
-        btn_find.setOnClickListener(new View.OnClickListener() {
+
+        etstart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //////////System.out.println();
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+
+            }
+        });
+
+        etend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_HALF_EXPANDED) {
+
+                } else {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
+                }
             }
         });
 
@@ -212,7 +234,7 @@ public class TowingMapActivity extends FragmentActivity implements
 
 
         // Setting button click event listener for the find button
-        btn_find.setOnClickListener(new View.OnClickListener() {
+        /*btn_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Getting reference to EditText to get the user input location
@@ -225,7 +247,7 @@ public class TowingMapActivity extends FragmentActivity implements
                 }
             }
         });
-
+*/
 
     }
 
@@ -465,7 +487,121 @@ public class TowingMapActivity extends FragmentActivity implements
                 if (distance > 25000) {
                     Toast.makeText(TowingMapActivity.this, "Distance Limit Exceed! " + distance / 1000 + " Towing Not Possible", Toast.LENGTH_SHORT).show();
                 } else {
-                    new AlertDialog.Builder(TowingMapActivity.this)
+
+                    AlertDialog dialogBuilder;
+
+                    final TextView username, phone, ulocation, totp, flocation;
+                    final Button route, book, breqotp;
+                    dialogBuilder = new AlertDialog.Builder(TowingMapActivity.this).create();
+                    LayoutInflater inflater = getLayoutInflater();
+                    final View dialogView = inflater.inflate(R.layout.customroutedialog, null);
+                    dialogBuilder.setCancelable(true);
+                    route = dialogView.findViewById(R.id.btn_route);
+                    book= dialogView.findViewById(R.id.btn_boook);
+
+                    dialogBuilder.setView(dialogView);
+                    dialogBuilder.show();
+
+                    route.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://maps.google.com/maps?saddr=" + lati + "," + longi + "&daddr=" + latLng.latitude +
+                                            "," + latLng.longitude));
+                            startActivity(intent);
+
+                        }
+                    });
+
+                    book.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Driver");
+                            databaseReference.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        String key = ds.getKey();
+                                        Driver driver = new Driver();
+                                        driver.setRequestfound("1");
+                                        HashMap<String, Object> hashMap = new HashMap<>();
+                                        hashMap.put("request", "1");
+                                        databaseReference.child(key).updateChildren(hashMap);
+                                        System.out.println("keyyy" + key);
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                            final ProgressDialog dialog1 = new ProgressDialog(TowingMapActivity.this);
+                            dialog1.setMessage("Checking for Availability of Drivers..");
+                            dialog1.setCancelable(false);
+                            dialog1.show();
+                            drawRoute(latLng, new LatLng(lati, longi), distance);
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                            reference.child("Towing Requests").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+
+                                        String dname = ds.child("drivername").getValue(String.class);
+                                        String dcontact = ds.child("driverphone").getValue(String.class);
+                                        String dlat = ds.child("driverlat").getValue(String.class);
+                                        String dlong = ds.child("driverlong").getValue(String.class);
+                                        String ulat = ds.child("startlat").getValue(String.class);
+                                        String ulong = ds.child("startlong").getValue(String.class);
+                                        //List<Address> addresses = null;
+
+                                        System.out.println(dname + " " + dcontact + " " + ulat + " " + ulong);
+                                        if (dname != null) {
+                                            try {
+                                                addre = geocoder1.getFromLocation(Double.parseDouble(ulat), Double.parseDouble(ulong), 1);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                            String add = addre.get(0).getAddressLine(0);
+                                            final TextView uname, phone, ulocation;
+                                            final Button accept, decline;
+                                            final AlertDialog dialogBuilder = new AlertDialog.Builder(TowingMapActivity.this).create();
+                                            LayoutInflater inflater = getLayoutInflater();
+                                            final View dialogView = inflater.inflate(R.layout.customdialog, null);
+                                            dialogBuilder.setCancelable(true);
+                                            uname = dialogView.findViewById(R.id.dname);
+                                            phone = dialogView.findViewById(R.id.dphone);
+                                            ulocation = dialogView.findViewById(R.id.dloc);
+                                            uname.setText(dname);
+                                            phone.setText(dcontact);
+                                            ulocation.setText(add);
+                                            dialogBuilder.setView(dialogView);
+                                            dialogBuilder.show();
+
+                                            dialog1.dismiss();
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    });
+
+
+
+
+                    /*new AlertDialog.Builder(TowingMapActivity.this)
                             .setTitle("Route Verification")
                             .setMessage("Do you want to check this Route? If No, your request for towing will be processed.")
 
@@ -474,10 +610,6 @@ public class TowingMapActivity extends FragmentActivity implements
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Continue with delete operation
-                                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                                            Uri.parse("http://maps.google.com/maps?saddr=" + lati + "," + longi + "&daddr=" + latLng.latitude +
-                                                    "," + latLng.longitude));
-                                    startActivity(intent);
 
                                 }
                             })
@@ -486,89 +618,14 @@ public class TowingMapActivity extends FragmentActivity implements
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Driver");
-                                    databaseReference.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                                String key = ds.getKey();
-                                                Driver driver = new Driver();
-                                                driver.setRequestfound("1");
-                                                HashMap<String, Object> hashMap = new HashMap<>();
-                                                hashMap.put("request", "1");
-                                                databaseReference.child(key).updateChildren(hashMap);
-                                                System.out.println("keyyy" + key);
-
-                                            }
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                    final ProgressDialog dialog1 = new ProgressDialog(TowingMapActivity.this);
-                                    dialog1.setMessage("Checking for Availability of Drivers..");
-                                    dialog1.setCancelable(false);
-                                    dialog1.show();
-                                    drawRoute(latLng, new LatLng(lati, longi), distance);
-
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-                                    reference.child("Towing Requests").addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-
-                                                String dname = ds.child("drivername").getValue(String.class);
-                                                String dcontact = ds.child("driverphone").getValue(String.class);
-                                                String dlat = ds.child("driverlat").getValue(String.class);
-                                                String dlong = ds.child("driverlong").getValue(String.class);
-                                                String ulat = ds.child("startlat").getValue(String.class);
-                                                String ulong = ds.child("startlong").getValue(String.class);
-                                                //List<Address> addresses = null;
-
-                                                System.out.println(dname + " " + dcontact + " " + ulat + " " + ulong);
-                                                if (dname != null) {
-                                                    try {
-                                                        addre = geocoder1.getFromLocation(Double.parseDouble(ulat), Double.parseDouble(ulong), 1);
-                                                    } catch (IOException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                    String add = addre.get(0).getAddressLine(0);
-                                                    final TextView uname, phone, ulocation;
-                                                    final Button accept, decline;
-                                                    final AlertDialog dialogBuilder = new AlertDialog.Builder(TowingMapActivity.this).create();
-                                                    LayoutInflater inflater = getLayoutInflater();
-                                                    final View dialogView = inflater.inflate(R.layout.customdialog, null);
-                                                    dialogBuilder.setCancelable(true);
-                                                    uname = dialogView.findViewById(R.id.dname);
-                                                    phone = dialogView.findViewById(R.id.dphone);
-                                                    ulocation = dialogView.findViewById(R.id.dloc);
-                                                    uname.setText(dname);
-                                                    phone.setText(dcontact);
-                                                    ulocation.setText(add);
-                                                    dialogBuilder.setView(dialogView);
-                                                    dialogBuilder.show();
-
-                                                    dialog1.dismiss();
-                                                }
-
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                        }
-                                    });
 
                                 }
                             })
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show();
                     //drawPolylines(latLng, new LatLng(lati, longi));
+*/
+
 
 
                 }
@@ -662,6 +719,7 @@ public class TowingMapActivity extends FragmentActivity implements
                 locationService.setRequesting("1");
                 locationService.setUname(uname);
                 locationService.setUcontact(ucontact);
+                locationService.setEndrequest("0");
                 locationService.setTime(currentDateTimeString);
                 databaseReference.setValue(locationService);
 
