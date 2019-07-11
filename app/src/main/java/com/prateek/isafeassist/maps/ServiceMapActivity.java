@@ -498,6 +498,8 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                                 String dlong = ds.child("driverlong").getValue(String.class);
                                 String ulat = ds.child("lat").getValue(String.class);
                                 String ulong = ds.child("longi").getValue(String.class);
+                                String ot= ds.child("OTP").getValue(String.class);
+
 
                                 System.out.println(dname + " " + dcontact + " ");
                                 if (dname != null) {
@@ -507,7 +509,7 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                                         e.printStackTrace();
                                     }
                                     String add = addresses.get(0).getAddressLine(0);
-                                    final TextView uname, phone, ulocation;
+                                    final TextView uname, phone, ulocation, otpp;
                                     final Button accept, decline;
                                     final AlertDialog dialogBuilder = new AlertDialog.Builder(ServiceMapActivity.this).create();
                                     LayoutInflater inflater = getLayoutInflater();
@@ -515,10 +517,12 @@ public class ServiceMapActivity extends FragmentActivity implements OnMapReadyCa
                                     dialogBuilder.setCancelable(true);
                                     uname = dialogView.findViewById(R.id.dname);
                                     phone = dialogView.findViewById(R.id.dphone);
+                                    otpp= dialogView.findViewById(R.id.startotp);
                                     ulocation = dialogView.findViewById(R.id.dloc);
                                     uname.setText(dname);
                                     phone.setText(dcontact);
                                     ulocation.setText(add);
+                                    otpp.setText(ot);
                                     dialogBuilder.setView(dialogView);
                                     dialogBuilder.show();
 
