@@ -68,6 +68,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentResultL
          //PaymentActivity.count++;
 
 
+        
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User").child(auth.getCurrentUser().getUid());
         reference = FirebaseDatabase.getInstance().getReference().child("User").child(auth.getCurrentUser().getUid());
         reff= FirebaseDatabase.getInstance().getReference();
